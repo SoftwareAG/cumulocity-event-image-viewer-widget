@@ -1,1 +1,113 @@
-<img [src]="getImage()">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+
+
+<!-- 
+<button mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">
+    {{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}
+  </button> -->
+  
+ 
+      <mat-vertical-stepper [linear]="isLinear" #stepper (selectionChange)="stepperselectected($event)" [selectedIndex]="selectedIndex" >
+        <ng-template matStepperIcon="edit">
+          <mat-icon></mat-icon>
+        </ng-template>
+        
+        <mat-step  *ngFor ="let i of [1,2,3,4]">    
+           <ng-template matStepLabel>Event {{i}} </ng-template>
+           
+            <div class="details-div">
+              <label class="heading-label">DETAILS</label>
+
+              <div class="container">
+                <div class="child"> 
+               
+                  <dl>
+                    <dt>Time</dt>
+                    <dd>3 Mar 2020 15:18:10</dd>
+                  </dl>
+                  <dl>
+                    <dt>Image Type</dt>
+                    <dd>Good</dd>
+                  </dl>
+                  <dl>
+                    <dt>Device Name</dt>
+                    <dd>Cam_1223</dd>
+                  </dl>
+                </div>
+                <div class="child">
+                  <img [src]="getImage(i)" class="stepper-img" (click)="openDialog()"  matTooltip="Click to zoom it">
+                </div>
+              </div>
+              
+            </div>
+
+           
+          </mat-step>
+          
+        <mat-step>
+          <ng-template matStepLabel>Done</ng-template>
+          You are now done.
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button (click)="stepper.reset()">Reset</button>
+          </div>
+        </mat-step>
+      </mat-vertical-stepper>
+   
+    <!-- <mat-card class= "child" style="position: relative;">
+        <img [src]="url" class="imgClass">
+      </mat-card> -->
+
+
+<br>
+
+  <!-- <mat-accordion>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+       <small class="event-date">2 March 2020 05:29</small>
+       <div style="background-color: steelblue; width: 15px; height: 15px; border-radius: 50%;"></div>
+        </mat-panel-title>
+        <mat-panel-description>
+         Event 1
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <div class="details-div">
+        <label class="heading-label">DETAILS</label>
+
+        <div class="container">
+          <div class="child"> 
+            <dl>
+              <dt>Time</dt>
+              <dd>3 Mar 2020 15:18:10</dd>
+            </dl>
+            <dl>
+              <dt>Image Type</dt>
+              <dd>Good</dd>
+            </dl>
+            <dl>
+              <dt>Device Name</dt>
+              <dd>Cam_1223</dd>
+            </dl>
+          </div>
+          <div class="child">
+            <img [src]="getImage(1)" class="stepper-img" >
+          </div>
+        </div>
+        
+      </div>
+    </mat-expansion-panel>
+    <mat-expansion-panel (opened)="panelOpenState = true"
+                         (closed)="panelOpenState = false">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Self aware panel
+        </mat-panel-title>
+        <mat-panel-description>
+          Currently I am {{panelOpenState ? 'open' : 'closed'}}
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <p>I'm visible because I am open</p>
+    </mat-expansion-panel>
+  </mat-accordion> -->
