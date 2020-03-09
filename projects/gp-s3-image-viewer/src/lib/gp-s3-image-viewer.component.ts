@@ -1,31 +1,71 @@
-import { Component, OnInit, ViewChild, ViewEncapsulation, Inject } from '@angular/core';
-import * as AWS from 'aws-sdk';
-import { MatStepper, MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  ViewEncapsulation,
+  Inject,
+  Input
+} from "@angular/core";
+import * as AWS from "aws-sdk";
+import {
+  MatStepper,
+  MatDialog,
+  MAT_DIALOG_DATA,
+  MatDialogRef
+} from "@angular/material";
+import { GpS3ImageViewerService } from "./gp-s3-image-viewer.service";
+import { EventService } from "@c8y/client";
 
 export interface DialogData {
   url: string;
 }
 @Component({
-  selector: 'lib-gp-s3-image-viewer',
-  templateUrl: './gp-s3-image-viewer.html',
-  styleUrls: ['./gp-s3-image-viewer.css'],
+  selector: "lib-gp-s3-image-viewer",
+  templateUrl: "./gp-s3-image-viewer.html",
+  styleUrls: ["./gp-s3-image-viewer.css"],
   encapsulation: ViewEncapsulation.None
 })
 export class GpS3ImageViewerComponent {
-
-  constructor(public dialog: MatDialog) {
+  constructor(public dialog: MatDialog, public events: EventService) {
     this.url = this.getImage(1);
-   }
+  
+    // console.log("Device Id"+ this.config.device.id)
+  }
+
+  @Input() config;
   isLinear = false;
   panelOpenState = false;
   url = '';
   selectedIndex = '0';
-@ViewChild('stepper') stepper: MatStepper;
-   openDialog(): void {
+  realtimeState = true;
+  evantData = [];
+
+
+  @ViewChild('stepper') stepper: MatStepper;
+
+  ngOnInit() {
+    this.fetchEvents();
+  }
+  filter(dateFrom, dateTo)
+  {
+
+    console.log(this.evantData);
+    console.log( dateFrom);
+    console.log( dateTo);
+    
+    this.evantData.filter((singleEvent) =>{
+      console.log("Event Creation Time"+singleEvent.creationTime);
+    });
+
+  
+  
+  }
+  openDialog(key): void {
+    const url = this.getImage(key);
     const dialogRef = this.dialog.open(ImageViewerDialog, {
       width: '350px',
       height: '350px',
-      data: {url: this.url}
+      data: { url: url }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -33,42 +73,59 @@ export class GpS3ImageViewerComponent {
     });
   }
 
-  getImage(i) {
-    const awsConfig = new AWS.Config({
-      accessKeyId: 'AKIAV6J42ZLEEBLX23IJ',
-      secretAccessKey: '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',
-      signatureVersion: 'v4',
-      region: 'eu-central-1'
+  async fetchEvents() {
+    console.log('==========Config========')
+    console.log(this.config);
+    // this.config.device.id
+    let events = await this.events.listBySource$("1644", {pageSize:2000},{
+      hot:true,
+      realtime: true
+    }).subscribe(data => {
+      console.log('============Data===============');
+      console.log(data);
+      this.evantData = data;
+      this.evantData.reverse();
     });
-    const s3 = new AWS.S3(awsConfig);
-
-    const url = s3.getSignedUrl('getObject', {
-      Bucket: 'sag-global-presales',
-      Key: 'test-development/PROD0000' + i + '-s.png'
-      // Key: 'test-development/test.png'
-    });
-    return url;
+  }
+  toggle() {
+    this.realtimeState = !this.realtimeState;
+  }
+  getImage(key) {
+    if(this.config != undefined)
+    {
+      const awsConfig = new AWS.Config({
+        accessKeyId: this.config.accessKeyId,   //"AKIAV6J42ZLEEBLX23IJ",
+        secretAccessKey: this.config.secretAccessKey, //"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",
+        signatureVersion: this.config.signatureVersion, //"v4",
+        region: this.config.region //"eu-central-1"
+      });
+      const s3 = new AWS.S3(awsConfig);
+  
+      const url = s3.getSignedUrl("getObject", {
+        Bucket: this.config.bucket, //"sag-global-presales",
+        Key: key + ''
+      });
+      return url;
+    }
+    return '';
   }
   stepperselectected(event) {
-   // console.log('Stepper Selected'+event.selectedIndex);
-    this.url = this.getImage(event.selectedIndex + 1);
+    
   }
-
 }
 
 @Component({
-  selector: 'image-viewer-dialog',
-  templateUrl: 'image-viewer-dialog.html',
-  styleUrls:['image-viewer-dialog.css']
+  selector: "image-viewer-dialog",
+  templateUrl: "image-viewer-dialog.html",
+  styleUrls: ["image-viewer-dialog.css"]
 })
 export class ImageViewerDialog {
-
   constructor(
     public dialogRef: MatDialogRef<ImageViewerDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+    @Inject(MAT_DIALOG_DATA) public data: DialogData
+  ) {}
 
   onNoClick(): void {
     this.dialogRef.close();
   }
-
 }

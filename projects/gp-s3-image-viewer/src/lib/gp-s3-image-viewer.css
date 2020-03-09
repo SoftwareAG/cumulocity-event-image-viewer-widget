@@ -6,7 +6,7 @@
     text-align: right;
     
 }
-.container{
+.container-imageviewer{
     display:flex;
     flex-wrap: wrap;
     justify-content: space-around;
@@ -37,13 +37,13 @@
 
 }
 .heading-label{
-    background-color: white;
+    background-color: #FBFBFC;
     position: absolute;
     top: -10px;
     padding: 3px;
     color: #677680;
     font-size: 12px;
-    font-weight: 500;
+    font-weight:  var(--legend-font-weight, 500);
 }
 .stepper-img{
     width: 60px;
@@ -68,7 +68,7 @@ dl{
   
 }
 dt{
-    font-weight: 700;
+    font-weight:  700;
     color: #677680;
     line-height: 1.428;
     display: inline;
@@ -77,6 +77,7 @@ dd{
     color: #677680;
     line-height: 1.428;
     display: inline;
+    margin-left: 5px;
 }
 .text { transform: scaleX(-1); font-size: 10px ;}
 .mat-step-icon .mat-icon,
@@ -88,6 +89,9 @@ dd{
 }
 .mat-vertical-content-container{
     margin-left: 15px !important;
+    border-bottom:2px solid #F0F0F1 !important;
+    background-color: #FBFBFC;
+   
 }
 .mat-step-icon{
     width: 12px !important;
@@ -100,4 +104,35 @@ dd{
 .mat-step-header .mat-step-icon-selected, .mat-step-header .mat-step-icon-state-done, .mat-step-header .mat-step-icon-state-edit
 {
     background-color: #1776BF !important;
+}
+.mat-stepper-vertical-line::before
+{
+    border-left-style: dotted !important;
+    border-left-width: 2px !important;
+}
+.label-time{
+    /* color: #677680; */
+    line-height: 1.428;
+    display: inline;
+    position: absolute;
+    left: -55px;
+    font-size: 10px;
+    width: 60px;
+   
+  white-space: initial;
+    /* margin-left: 5px; */
+}
+.mat-step-header{
+    overflow: inherit !important;
+}
+.mat-form-field-appearance-outline .mat-form-field-infix
+{ 
+  padding: 0em 0 0.5em 0 !important;
+}
+.dateChooserStyling{
+    margin: 5px;
+    width: 150px;
+}
+.mat-form-field{
+    font-size: 12px;
 }

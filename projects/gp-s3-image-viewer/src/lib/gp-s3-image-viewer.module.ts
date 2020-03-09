@@ -2,10 +2,11 @@ import { NgModule } from '@angular/core';
 import { HOOK_COMPONENT, CoreModule } from '@c8y/ngx-components';
 import { GpS3ImageViewerComponent, ImageViewerDialog } from './gp-s3-image-viewer.component';
 import { GpS3ImageViewerConfigComponent } from './gp-s3-image-viewer-config/gp-s3-image-viewer-config.component';
-import {MatStepperModule, MatExpansionModule,MatCardModule,MatDialogModule, MatTooltipModule} from '@angular/material';
+import {MatStepperModule, MatExpansionModule,MatCardModule,MatDialogModule, MatTooltipModule,MatDatepickerModule,MatNativeDateModule,MatInputModule, MatButtonModule,MatRadioModule} from '@angular/material';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatIconModule} from '@angular/material/icon';
+import { GpS3ImageViewerService } from './gp-s3-image-viewer.service';
 
 @NgModule({
   declarations: [GpS3ImageViewerComponent, GpS3ImageViewerConfigComponent, ImageViewerDialog],
@@ -18,11 +19,17 @@ import {MatIconModule} from '@angular/material/icon';
       MatExpansionModule,
       MatCardModule,
       MatDialogModule,
-      MatTooltipModule
+      MatTooltipModule,
+      MatDatepickerModule,
+      MatNativeDateModule,
+      MatInputModule,
+      MatButtonModule,
+      MatRadioModule
   ],
   exports: [GpS3ImageViewerComponent, GpS3ImageViewerConfigComponent],
   entryComponents: [GpS3ImageViewerComponent, GpS3ImageViewerConfigComponent, ImageViewerDialog],
   providers: [
+    GpS3ImageViewerService,
     {
       provide: HOOK_COMPONENT,
       multi: true,

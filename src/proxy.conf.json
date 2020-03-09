@@ -1,6 +1,6 @@
 {
     "/": {
-    "target": "http://racm-manufacturing.eu-latest.cumulocity.com/",
+    "target": "https://demosvcs.cumulocity.com/",
     "secure": false,
     "changeOrigin": true,
     "logLevel": "info"

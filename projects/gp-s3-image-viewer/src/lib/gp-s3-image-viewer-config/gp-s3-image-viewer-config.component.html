@@ -1,5 +1,34 @@
 <div class="form-group">
     <c8y-form-group>
-  
+        <mat-radio-group aria-label="Select an option">
+            <mat-radio-button value="baseUrl">Base URL</mat-radio-button>
+            <mat-radio-button value="s3key">S3 Key</mat-radio-button>
+          </mat-radio-group>
+        <div class="container-configimageviwer">
+            <div class="child">
+                <label translate>Base URL</label>
+                <input type="text" name="config.baseUrl" style="width:100%" [(ngModel)]="config.baseUrl">
+            </div>
+            <div class="child">
+                <label translate>AccessKey ID</label>
+                <input type="text" name="config.accessKeyId" style="width:100%" [(ngModel)]="config.accessKeyId">
+                <br>
+                <label translate>Secret AcessKey</label>
+                <input type="text" name="config.secretAccessKey" style="width:100%" [(ngModel)]="config.secretAccessKey">
+                <br>
+                <label translate>Signature Version</label>
+                <input type="text" name="config.signatureVersion" style="width:100%" [(ngModel)]="config.signatureVersion">
+                <br>
+                <label translate>Region</label>
+                <input type="text" name="config.region" style="width:100%" [(ngModel)]="config.region">
+                <br>
+                <label translate>Bucket</label>
+                <input type="text" name="config.bucket" style="width:100%" [(ngModel)]="config.bucket">
+            </div>
+          </div>
+
+    
+
+
     </c8y-form-group>
 </div>

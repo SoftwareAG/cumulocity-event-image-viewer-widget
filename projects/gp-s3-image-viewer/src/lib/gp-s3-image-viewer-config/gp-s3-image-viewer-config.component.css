@@ -1,0 +1,7 @@
+.container-configimageviwer{
+    display: flex;
+}
+.child{
+    flex-grow:1 ; 
+    margin: 5px;
+}
