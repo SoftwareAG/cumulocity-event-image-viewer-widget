@@ -9,7 +9,9 @@ import { Component, OnInit, Input } from '@angular/core';
 
 export class GpS3ImageViewerConfigComponent implements OnInit {
 @Input() config: any = {};
-  constructor() { }
+  constructor() { 
+    this.config.imgSrcType = "baseUrl"
+  }
 
   ngOnInit() {
 

@@ -1,3 +1,4 @@
+
 import {
   Component,
   OnInit,
@@ -5,17 +6,17 @@ import {
   ViewEncapsulation,
   Inject,
   Input
-} from "@angular/core";
-import * as AWS from "aws-sdk";
+} from '@angular/core';
+import * as AWS from 'aws-sdk';
 import {
   MatStepper,
   MatDialog,
   MAT_DIALOG_DATA,
   MatDialogRef
-} from "@angular/material";
-import { GpS3ImageViewerService } from "./gp-s3-image-viewer.service";
-import { EventService } from "@c8y/client";
-
+} from '@angular/material';
+import { GpS3ImageViewerService } from './gp-s3-image-viewer.service';
+import { EventService } from '@c8y/client';
+// import { SHA256, enc } from "crypto-js";
 export interface DialogData {
   url: string;
 }
@@ -27,8 +28,9 @@ export interface DialogData {
 })
 export class GpS3ImageViewerComponent {
   constructor(public dialog: MatDialog, public events: EventService) {
+
     this.url = this.getImage(1);
-  
+
     // console.log("Device Id"+ this.config.device.id)
   }
 
@@ -40,32 +42,27 @@ export class GpS3ImageViewerComponent {
   realtimeState = true;
   evantData = [];
 
-
   @ViewChild('stepper') stepper: MatStepper;
 
   ngOnInit() {
     this.fetchEvents();
   }
-  filter(dateFrom, dateTo)
-  {
+  filter(dateFrom, dateTo) {
+    // console.log(this.evantData);
+    // console.log(dateFrom);
+    // console.log(dateTo);
 
-    console.log(this.evantData);
-    console.log( dateFrom);
-    console.log( dateTo);
-    
-    this.evantData.filter((singleEvent) =>{
-      console.log("Event Creation Time"+singleEvent.creationTime);
+    this.evantData.filter(singleEvent => {
+      console.log('Event Creation Time' + singleEvent.creationTime);
     });
-
-  
-  
   }
   openDialog(key): void {
-    const url = this.getImage(key);
+  
+    //const url = this.getImage(key);
     const dialogRef = this.dialog.open(ImageViewerDialog, {
-      width: '350px',
-      height: '350px',
-      data: { url: url }
+      width: this.config.width + 'px',
+      height: this.config.height + 'px' ,
+      data: { url: this.url }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -74,43 +71,58 @@ export class GpS3ImageViewerComponent {
   }
 
   async fetchEvents() {
-    console.log('==========Config========')
+    console.log('==========Config========');
     console.log(this.config);
     // this.config.device.id
-    let events = await this.events.listBySource$("1644", {pageSize:2000},{
-      hot:true,
-      realtime: true
-    }).subscribe(data => {
-      console.log('============Data===============');
-      console.log(data);
-      this.evantData = data;
-      this.evantData.reverse();
-    });
+    this.events
+      .listBySource$('1644' ,{ pageSize: 2000 }, {
+        hot: true,
+        realtime: true
+      })
+      .subscribe(data => {
+        if (this.realtimeState) {
+          console.log('============Data===============');
+          console.log(data);
+          this.evantData = [...data];
+          this.evantData.reverse();
+        }
+      });
+
   }
   toggle() {
     this.realtimeState = !this.realtimeState;
+    if (this.realtimeState) {
+      this.fetchEvents();
+    }
   }
-  getImage(key) {
-    if(this.config != undefined)
-    {
+  getImage = (key) => {
+  console.log('====get Image====');
+  console.log(key);
+    if (this.config !== undefined) {
+
+      // const hash = SHA256('oas/j58jffQRWlHzBeqLJLrfA7NTGRnp1c8vsBJK').toString(enc.Base64);
+      // console.log("============Hash Code=====");
+      // console.log(hash);
+
       const awsConfig = new AWS.Config({
-        accessKeyId: this.config.accessKeyId,   //"AKIAV6J42ZLEEBLX23IJ",
-        secretAccessKey: this.config.secretAccessKey, //"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",
-        signatureVersion: this.config.signatureVersion, //"v4",
-        region: this.config.region //"eu-central-1"
+        accessKeyId: this.config.accessKeyId, // "AKIAV6J42ZLEEBLX23IJ",
+        secretAccessKey: this.config.secretAccessKey, // "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",
+        signatureVersion: this.config.signatureVersion, // "v4",
+        region: this.config.region // "eu-central-1"
       });
       const s3 = new AWS.S3(awsConfig);
-  
-      const url = s3.getSignedUrl("getObject", {
-        Bucket: this.config.bucket, //"sag-global-presales",
+
+      const url = s3.getSignedUrl('getObject', {
+        Bucket: this.config.bucket, // "sag-global-presales",
         Key: key + ''
       });
+      
       return url;
     }
     return '';
   }
   stepperselectected(event) {
-    
+   this.url = this.getImage(this.evantData[event.selectedIndex].text);
   }
 }
 
