@@ -7,7 +7,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatIconModule} from '@angular/material/icon';
 import { GpS3ImageViewerService } from './gp-s3-image-viewer.service';
-
+import { HttpClientModule }    from '@angular/common/http';
 @NgModule({
   declarations: [GpS3ImageViewerComponent, GpS3ImageViewerConfigComponent, ImageViewerDialog],
   imports: [
@@ -24,7 +24,8 @@ import { GpS3ImageViewerService } from './gp-s3-image-viewer.service';
       MatNativeDateModule,
       MatInputModule,
       MatButtonModule,
-      MatRadioModule
+      MatRadioModule,
+      HttpClientModule
   ],
   exports: [GpS3ImageViewerComponent, GpS3ImageViewerConfigComponent],
   entryComponents: [GpS3ImageViewerComponent, GpS3ImageViewerConfigComponent, ImageViewerDialog],

@@ -5,7 +5,7 @@ import {
   ViewChild,
   ViewEncapsulation,
   Inject,
-  Input
+  Input,
 } from '@angular/core';
 import * as AWS from 'aws-sdk';
 import {
@@ -16,6 +16,7 @@ import {
 } from '@angular/material';
 import { GpS3ImageViewerService } from './gp-s3-image-viewer.service';
 import { EventService } from '@c8y/client';
+import { DomSanitizer } from '@angular/platform-browser';
 // import { SHA256, enc } from "crypto-js";
 export interface DialogData {
   url: string;
@@ -27,9 +28,9 @@ export interface DialogData {
   encapsulation: ViewEncapsulation.None
 })
 export class GpS3ImageViewerComponent {
-  constructor(public dialog: MatDialog, public events: EventService) {
+  constructor(public dialog: MatDialog, public events: EventService, public imageViewrService: GpS3ImageViewerService, public _DomSanitizationService: DomSanitizer ) {
 
-    this.url = this.getImage(1);
+   // this.url = this.getImage(1);
 
     // console.log("Device Id"+ this.config.device.id)
   }
@@ -38,7 +39,7 @@ export class GpS3ImageViewerComponent {
   isLinear = false;
   panelOpenState = false;
   url = '';
-  selectedIndex = '0';
+  selectedIndex = 0;
   realtimeState = true;
   evantData = [];
 
@@ -46,7 +47,36 @@ export class GpS3ImageViewerComponent {
 
   ngOnInit() {
     this.fetchEvents();
+    if (this.config.imgSrcType === 'baseUrl') {
+      console.log("Base URL"+ this.config.baseUrl);
+      this.fetchImg(this.config.baseUrl + this.evantData[0].text);
+    } else {
+      this.url = this.getImage(this.evantData[0].text);
+    }
+
   }
+  refresh(){
+
+    this.fetchEvents();
+    this.url = '';
+    if (this.config.imgSrcType === 'baseUrl') {
+      console.log("Base URL"+ this.config.baseUrl);
+      this.fetchImg(this.config.baseUrl + this.evantData[this.selectedIndex].text);
+    } else {
+      this.url = this.getImage(this.evantData[this.selectedIndex].text);
+    }
+  }
+  async fetchImg(url){
+
+    console.log("===+ URL=====");
+    console.log(url);
+    let x = await this.imageViewrService.fetchImageFronMaseUrl(url).toPromise(); 
+    console.log(x)
+    this.url = 'data:image/png;base64, ' + x['encodedString'];
+  }
+
+  
+
   filter(dateFrom, dateTo) {
     // console.log(this.evantData);
     // console.log(dateFrom);
@@ -57,7 +87,7 @@ export class GpS3ImageViewerComponent {
     });
   }
   openDialog(key): void {
-  
+
     //const url = this.getImage(key);
     const dialogRef = this.dialog.open(ImageViewerDialog, {
       width: this.config.width + 'px',
@@ -75,7 +105,7 @@ export class GpS3ImageViewerComponent {
     console.log(this.config);
     // this.config.device.id
     this.events
-      .listBySource$('1644' ,{ pageSize: 2000 }, {
+      .listBySource$(this.config.device.id ,{ pageSize: 2000 }, {
         hot: true,
         realtime: true
       })
@@ -122,18 +152,26 @@ export class GpS3ImageViewerComponent {
     return '';
   }
   stepperselectected(event) {
-   this.url = this.getImage(this.evantData[event.selectedIndex].text);
+    this.url = '';
+    this.selectedIndex = event.selectedIndex;
+    if (this.config.imgSrcType === 'baseUrl') {
+      console.log("Base URL"+ this.config.baseUrl);
+      this.fetchImg(this.config.baseUrl + this.evantData[this.selectedIndex].text);
+    } else {
+      this.url = this.getImage(this.evantData[this.selectedIndex].text);
+    }
+
   }
 }
 
 @Component({
-  selector: "image-viewer-dialog",
+  selector: 'image-viewer-dialog',
   templateUrl: "image-viewer-dialog.html",
   styleUrls: ["image-viewer-dialog.css"]
 })
 export class ImageViewerDialog {
   constructor(
-    public dialogRef: MatDialogRef<ImageViewerDialog>,
+    public dialogRef: MatDialogRef<ImageViewerDialog>, public _DomSanitizationService: DomSanitizer,
     @Inject(MAT_DIALOG_DATA) public data: DialogData
   ) {}
 

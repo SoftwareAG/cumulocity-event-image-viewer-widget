@@ -7,7 +7,7 @@
     {{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}
   </button> -->
   <div>
-    <mat-form-field appearance="outline" class="dateChooserStyling">
+    <!-- <mat-form-field appearance="outline" class="dateChooserStyling">
       <input matInput [matDatepicker]="fromPicker" placeholder="From" >
       <mat-datepicker-toggle matSuffix [for]="fromPicker"></mat-datepicker-toggle>
       <mat-datepicker #fromPicker></mat-datepicker>
@@ -19,13 +19,13 @@
     </mat-form-field>
     <button type="button" title="Filter date range" class="btn btn-default " (click)="filter(fromPicker, toPicker)">
       <i c8y-icon="filter" class="fa fw fa-filter"></i>
-    </button>
+    </button> -->
     <div style ="float: right; margin-right: 10px;">
       <button type="button" class="btn btn-link c8y-realtime" title="Toggle realtime" (click)="toggle()" >
         <span [ngClass]="realtimeState?'c8y-pulse active' : 'c8y-pulse inactive'" ></span>
         <span >Realtime</span>
       </button>
-      <button mat-icon-button style="float: right; margin-right: 10px;color:#1776BF;" type="button" class="button" (click) = "fetchEvents()" ><span class="fa fa-refresh"></span></button>
+      <button mat-icon-button style="float: right; margin-right: 10px;color:#1776BF;" type="button" class="button" (click) = "refresh()" ><span class="fa fa-refresh"></span></button>
       </div>
   </div>
  <div style="margin-left: 60px;">
@@ -57,7 +57,7 @@
               </dl>
             </div>
             <div class="child">
-              <img [src]="this.url" class="stepper-img" (click)="openDialog(event.text)"  matTooltip="Click to zoom it">
+              <img [src]="_DomSanitizationService.bypassSecurityTrustUrl(this.url)" class="stepper-img" (click)="openDialog(event.text)"  matTooltip="Click to zoom it">
             </div>
           </div>
           
@@ -66,14 +66,7 @@
        
       </mat-step>
       
-    <mat-step>
-      <ng-template matStepLabel>Done</ng-template>
-      You are now done.
-      <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button (click)="stepper.reset()">Reset</button>
-      </div>
-    </mat-step>
+  
   </mat-vertical-stepper>
  </div>
       
