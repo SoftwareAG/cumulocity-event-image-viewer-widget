@@ -128,6 +128,3 @@ Update package.json start script
 ```
 Run `npm run deploy ` 
 
-## Usage
-
-For Usage please refer [Widget iwiki](https://labcase.softwareag.com/projects/c8y-firmware-chart/wiki#)
