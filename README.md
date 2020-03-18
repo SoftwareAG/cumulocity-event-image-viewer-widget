@@ -1,7 +1,6 @@
 # Cumulocity Widget - S3 Image Viewer 
 
-  This is an Angular 7 widget, which is designed for camera device to display the Events which are classified good and bad . 
-  The widget also displays the image clicked by camera device. 
+  This is an Angular 7 widget, which is designed to display the Events that are created whenever the image is captured by the camera device and the captured image is displayed in the widget. The image is classified good or bad based on zementis.
 
 ## Prerequisites:
    ##### Angular version 
@@ -128,3 +127,4 @@ Update package.json start script
 ```
 Run `npm run deploy ` 
 
+or Usage please refer [Widget iwiki](https://labcase.softwareag.com/projects/s3-image-viewer/wiki#)
