@@ -20,7 +20,7 @@ export declare class GpS3ImageViewerComponent {
     evantData: any[];
     stepper: MatStepper;
     ngOnInit(): void;
-    refresh(): void;
+    refresh(): Promise<void>;
     fetchImg(url: any): Promise<void>;
     filter(dateFrom: any, dateTo: any): void;
     openDialog(key: any): void;

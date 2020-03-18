@@ -46,18 +46,12 @@ export class GpS3ImageViewerComponent {
   @ViewChild('stepper') stepper: MatStepper;
 
   ngOnInit() {
-    this.fetchEvents();
-    if (this.config.imgSrcType === 'baseUrl') {
-      console.log("Base URL"+ this.config.baseUrl);
-      this.fetchImg(this.config.baseUrl + this.evantData[0].text);
-    } else {
-      this.url = this.getImage(this.evantData[0].text);
-    }
+   this.refresh();
 
   }
-  refresh(){
+  async refresh(){
 
-    this.fetchEvents();
+    await this.fetchEvents();
     this.url = '';
     if (this.config.imgSrcType === 'baseUrl') {
       console.log("Base URL"+ this.config.baseUrl);
@@ -105,7 +99,7 @@ export class GpS3ImageViewerComponent {
     console.log(this.config);
     // this.config.device.id
     this.events
-      .listBySource$(this.config.device.id ,{ pageSize: 2000 }, {
+      .listBySource$("1644" ,{ pageSize: 2000 }, {
         hot: true,
         realtime: true
       })

@@ -6,7 +6,7 @@
 <button mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">
     {{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}
   </button> -->
-  <div>
+  <div style="height: 25px;">
     <!-- <mat-form-field appearance="outline" class="dateChooserStyling">
       <input matInput [matDatepicker]="fromPicker" placeholder="From" >
       <mat-datepicker-toggle matSuffix [for]="fromPicker"></mat-datepicker-toggle>
@@ -49,7 +49,11 @@
               </dl>
               <dl>
                 <dt>Image Type</dt>
-                <dd>{{event.type}}</dd>
+                <dd>{{event.type.substring(event.type.indexOf(':'),event.type.indexOf(' ; ') )}}</dd>
+              </dl>
+              <dl>
+                <dt>Severity</dt>
+                <dd>{{event.type.substr(event.type.lastIndexOf(':'))}}</dd>
               </dl>
               <dl>
                 <dt>Device Name</dt>
