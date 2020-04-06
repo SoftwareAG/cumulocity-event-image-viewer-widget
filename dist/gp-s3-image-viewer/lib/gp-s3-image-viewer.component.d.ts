@@ -11,6 +11,7 @@ export declare class GpS3ImageViewerComponent {
     imageViewrService: GpS3ImageViewerService;
     _DomSanitizationService: DomSanitizer;
     constructor(dialog: MatDialog, events: EventService, imageViewrService: GpS3ImageViewerService, _DomSanitizationService: DomSanitizer);
+    images: string[];
     config: any;
     isLinear: boolean;
     panelOpenState: boolean;
@@ -18,15 +19,18 @@ export declare class GpS3ImageViewerComponent {
     selectedIndex: number;
     realtimeState: boolean;
     evantData: any[];
+    slideshow: boolean;
+    noWrapSlides: boolean;
     stepper: MatStepper;
     ngOnInit(): void;
     refresh(): Promise<void>;
+    errorInloading(event: any): void;
+    loadImage(): void;
+    setSlideShow(): void;
     fetchImg(url: any): Promise<void>;
-    filter(dateFrom: any, dateTo: any): void;
     openDialog(key: any): void;
     fetchEvents(): Promise<void>;
     toggle(): void;
-    getImage: (key: any) => string;
     stepperselectected(event: any): void;
 }
 export declare class ImageViewerDialog {

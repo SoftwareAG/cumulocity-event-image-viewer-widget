@@ -8,8 +8,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatIconModule} from '@angular/material/icon';
 import { GpS3ImageViewerService } from './gp-s3-image-viewer.service';
 import { HttpClientModule }    from '@angular/common/http';
+import { CarouselModule } from 'ngx-bootstrap/carousel';
+import { CarouselImageViewer } from './carousel-image-viewer';
 @NgModule({
-  declarations: [GpS3ImageViewerComponent, GpS3ImageViewerConfigComponent, ImageViewerDialog],
+  declarations: [GpS3ImageViewerComponent, GpS3ImageViewerConfigComponent, ImageViewerDialog,CarouselImageViewer],
   imports: [
       CoreModule,
       MatStepperModule,
@@ -25,10 +27,11 @@ import { HttpClientModule }    from '@angular/common/http';
       MatInputModule,
       MatButtonModule,
       MatRadioModule,
-      HttpClientModule
+      HttpClientModule,
+      CarouselModule.forRoot()
   ],
   exports: [GpS3ImageViewerComponent, GpS3ImageViewerConfigComponent],
-  entryComponents: [GpS3ImageViewerComponent, GpS3ImageViewerConfigComponent, ImageViewerDialog],
+  entryComponents: [GpS3ImageViewerComponent, GpS3ImageViewerConfigComponent, ImageViewerDialog,CarouselImageViewer],
   providers: [
     GpS3ImageViewerService,
     {
@@ -36,8 +39,8 @@ import { HttpClientModule }    from '@angular/common/http';
       multi: true,
       useValue: {
           id: 's3-image-viewer-widget',
-          label: 'S3 Image Viewer',
-          description: 'S3 Image Viewer',
+          label: 'Event Image Viewer',
+          description: 'Event Image Viewer',
           component: GpS3ImageViewerComponent,
           configComponent: GpS3ImageViewerConfigComponent,
           data: {

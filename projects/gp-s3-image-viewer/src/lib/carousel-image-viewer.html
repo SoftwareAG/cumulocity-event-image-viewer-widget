@@ -1,0 +1,36 @@
+<div style = "margin-left: auto;margin-right: auto;" [ngStyle]="{'width':data.width ,'height':data.height}">
+    <carousel [noPause]="noWrapSlides" [noWrap]="noWrapSlides" (activeSlideChange)= "carouselChanged($event)">
+      <slide *ngFor ="let event of data.eventData">
+        <img [src]="_DomSanitizationService.bypassSecurityTrustUrl(this.url)" alt="first slide"  (error)="errorInloading($event)" [ngStyle]="{'width':data.width ,'height':data.height}">
+        <!-- <div class="carousel-caption d-none d-md-block" style="background-color: rgba(0, 0, 0, 0.2)">
+          <dl>
+            <dt>Time</dt>
+            <dd>{{event.time | date:'d MMMM yyyy HH:mm'}}</dd>
+          </dl>
+          <dl>
+            <dt>Image Type</dt>
+            <dd>{{event.type.substring(event.type.indexOf(':'),event.type.indexOf(' ; ') )}}</dd>
+          </dl>
+          <dl>
+            <dt>Severity</dt>
+            <dd>{{event.type.substr(event.type.lastIndexOf(':'))}}</dd>
+          </dl>
+          <dl>
+            <dt>Device Name</dt>
+            <dd>{{event.source.name}}</dd>
+          </dl>
+        </div> -->
+      </slide>
+    </carousel>
+    <div style="text-align: center;">
+      <dl>
+        <dt>Time</dt>
+        <dd>{{time | date:'d MMMM yyyy HH:mm'}}</dd>
+      </dl>
+      <dl>
+        <dt>Image Type</dt>
+        <dd>{{imageType}}</dd>
+      </dl>
+    </div>
+   
+  </div>

@@ -17,24 +17,25 @@ import {
 import { GpS3ImageViewerService } from './gp-s3-image-viewer.service';
 import { EventService } from '@c8y/client';
 import { DomSanitizer } from '@angular/platform-browser';
+import * as DefaultImage from './gp-default-image';
+import { CarouselImageViewer } from './carousel-image-viewer';
 // import { SHA256, enc } from "crypto-js";
 export interface DialogData {
   url: string;
 }
+
 @Component({
-  selector: "lib-gp-s3-image-viewer",
-  templateUrl: "./gp-s3-image-viewer.html",
-  styleUrls: ["./gp-s3-image-viewer.css"],
+  selector: 'lib-gp-s3-image-viewer',
+  templateUrl: './gp-s3-image-viewer.html',
+  styleUrls: ['./gp-s3-image-viewer.css'],
   encapsulation: ViewEncapsulation.None
 })
 export class GpS3ImageViewerComponent {
   constructor(public dialog: MatDialog, public events: EventService, public imageViewrService: GpS3ImageViewerService, public _DomSanitizationService: DomSanitizer ) {
 
-   // this.url = this.getImage(1);
-
-    // console.log("Device Id"+ this.config.device.id)
   }
 
+  images = [1058, 1079, 984].map((n) => `https://picsum.photos/id/${n}/900/500`);
   @Input() config;
   isLinear = false;
   panelOpenState = false;
@@ -42,47 +43,66 @@ export class GpS3ImageViewerComponent {
   selectedIndex = 0;
   realtimeState = true;
   evantData = [];
-
+  slideshow = false;
+  noWrapSlides = false;
   @ViewChild('stepper') stepper: MatStepper;
 
   ngOnInit() {
    this.refresh();
 
   }
-  async refresh(){
-
+  async refresh() {
+    this.imageViewrService.fetchS3(this.config);
     await this.fetchEvents();
+  }
+
+  errorInloading(event) {
+    this.url = 'data:image/png;base64, ' + DefaultImage.defaultImage;
+  }
+  loadImage() {
     this.url = '';
     if (this.config.imgSrcType === 'baseUrl') {
-      console.log("Base URL"+ this.config.baseUrl);
       this.fetchImg(this.config.baseUrl + this.evantData[this.selectedIndex].text);
     } else {
-      this.url = this.getImage(this.evantData[this.selectedIndex].text);
+      this.url = this.imageViewrService.getImage(this.evantData[this.selectedIndex].text);
     }
   }
-  async fetchImg(url){
+  setSlideShow(){
+  this.slideshow = !this.slideshow;
+  const dialogRef = this.dialog.open(CarouselImageViewer, {
+    width: this.config.width + 'px',
+    height: this.config.height + 'px' ,
+    // width: '500px',
+    // height: '500px',
+    data: { eventData: this.evantData,
+            baseUrl: this.config.imgSrcType === 'baseUrl' ? this.config.baseUrl : '',
+            width: (Number(this.config.width) - 100) + 'px',
+            height: (Number(this.config.height) - 100) + 'px' ,
+            // width: '500px',
+            // height: '500px'
+          }
+  });
 
-    console.log("===+ URL=====");
-    console.log(url);
-    let x = await this.imageViewrService.fetchImageFronMaseUrl(url).toPromise(); 
-    console.log(x)
-    this.url = 'data:image/png;base64, ' + x['encodedString'];
+  dialogRef.afterClosed().subscribe(result => {
+
+  });
   }
-
   
+  async fetchImg(url) {
 
-  filter(dateFrom, dateTo) {
-    // console.log(this.evantData);
-    // console.log(dateFrom);
-    // console.log(dateTo);
+    let x = await this.imageViewrService.fetchImageFromBaseUrl(url).toPromise();
+    this.url = 'data:image/png;base64, ' + x['encodedString'];
 
-    this.evantData.filter(singleEvent => {
-      console.log('Event Creation Time' + singleEvent.creationTime);
-    });
   }
+
+
+  // filter(dateFrom, dateTo) {
+  //   this.evantData.filter(singleEvent => {
+  //     console.log('Event Creation Time' + singleEvent.creationTime);
+  //   });
+  // }
   openDialog(key): void {
 
-    //const url = this.getImage(key);
     const dialogRef = this.dialog.open(ImageViewerDialog, {
       width: this.config.width + 'px',
       height: this.config.height + 'px' ,
@@ -90,25 +110,23 @@ export class GpS3ImageViewerComponent {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+
     });
   }
 
   async fetchEvents() {
-    console.log('==========Config========');
-    console.log(this.config);
     // this.config.device.id
+    //1644
     this.events
-      .listBySource$("1644" ,{ pageSize: 2000 }, {
+      .listBySource$(this.config.device.id , { pageSize: 2000 }, {
         hot: true,
         realtime: true
       })
       .subscribe(data => {
         if (this.realtimeState) {
-          console.log('============Data===============');
-          console.log(data);
           this.evantData = [...data];
           this.evantData.reverse();
+          this.loadImage();
         }
       });
 
@@ -119,43 +137,40 @@ export class GpS3ImageViewerComponent {
       this.fetchEvents();
     }
   }
-  getImage = (key) => {
-  console.log('====get Image====');
-  console.log(key);
-    if (this.config !== undefined) {
+  // getImage = (key) => {
 
-      // const hash = SHA256('oas/j58jffQRWlHzBeqLJLrfA7NTGRnp1c8vsBJK').toString(enc.Base64);
-      // console.log("============Hash Code=====");
-      // console.log(hash);
+  //   if (this.config !== undefined) {
+  //     const awsConfig = new AWS.Config({
+  //       accessKeyId: this.config.accessKeyId, // "AKIAV6J42ZLEEBLX23IJ",
+  //       secretAccessKey: this.config.secretAccessKey, // "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",
+  //       signatureVersion: this.config.signatureVersion, // "v4",
+  //       region: this.config.region // "eu-central-1"
+  //     });
+  //     const s3 = new AWS.S3(awsConfig);
 
-      const awsConfig = new AWS.Config({
-        accessKeyId: this.config.accessKeyId, // "AKIAV6J42ZLEEBLX23IJ",
-        secretAccessKey: this.config.secretAccessKey, // "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",
-        signatureVersion: this.config.signatureVersion, // "v4",
-        region: this.config.region // "eu-central-1"
-      });
-      const s3 = new AWS.S3(awsConfig);
+  //     const url = s3.getSignedUrl('getObject', {
+  //       Bucket: this.config.bucket, // "sag-global-presales",
+  //       Key: key + ''
+  //     });
 
-      const url = s3.getSignedUrl('getObject', {
-        Bucket: this.config.bucket, // "sag-global-presales",
-        Key: key + ''
-      });
-      
-      return url;
-    }
-    return '';
-  }
+  //     return url;
+  //   }
+  //   return '';
+  // }
   stepperselectected(event) {
     this.url = '';
     this.selectedIndex = event.selectedIndex;
-    if (this.config.imgSrcType === 'baseUrl') {
-      console.log("Base URL"+ this.config.baseUrl);
-      this.fetchImg(this.config.baseUrl + this.evantData[this.selectedIndex].text);
-    } else {
-      this.url = this.getImage(this.evantData[this.selectedIndex].text);
-    }
+    this.loadImage();
 
   }
+  // carouselChanged(event) {
+  //   this.url = '';
+  //   console.log("=========Event======")
+  //   console.log(event);
+  //   this.selectedIndex = event ;
+  //   this.loadImage();
+
+  // }
 }
 
 @Component({

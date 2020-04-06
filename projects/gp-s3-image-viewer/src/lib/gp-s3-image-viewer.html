@@ -6,7 +6,8 @@
 <button mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">
     {{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}
   </button> -->
-  <div style="height: 25px;">
+  <div style="height: 40px;">
+    
     <!-- <mat-form-field appearance="outline" class="dateChooserStyling">
       <input matInput [matDatepicker]="fromPicker" placeholder="From" >
       <mat-datepicker-toggle matSuffix [for]="fromPicker"></mat-datepicker-toggle>
@@ -25,17 +26,49 @@
         <span [ngClass]="realtimeState?'c8y-pulse active' : 'c8y-pulse inactive'" ></span>
         <span >Realtime</span>
       </button>
+      <button mat-icon-button type="button" class="button" (click)="setSlideShow()">
+        <span class="fa fa-slideshare"></span>
+       </button>
       <button mat-icon-button style="float: right; margin-right: 10px;color:#1776BF;" type="button" class="button" (click) = "refresh()" ><span class="fa fa-refresh"></span></button>
       </div>
   </div>
- <div style="margin-left: 60px;">
+  
+<!-- Carousel -->
+<!-- (activeSlideChange)= "carouselChanged($event)" -->
+<!-- <div style = "width:300px; height: 300px; margin-left: auto;margin-right: auto;" *ngIf= "slideshow == true">
+  <carousel [noPause]="noWrapSlides" [noWrap]="noWrapSlides" (activeSlideChange)= "carouselChanged($event)">
+    <slide *ngFor ="let event of evantData">
+      <img [src]="_DomSanitizationService.bypassSecurityTrustUrl(this.url)" alt="first slide"  (error)="errorInloading($event)" style="width: 300px; height: 300px;">
+      <div class="carousel-caption d-none d-md-block" style="background-color: rgba(0, 0, 0, 0.2)">
+        <dl>
+          <dt>Time</dt>
+          <dd>{{event.time}}</dd>
+        </dl>
+        <dl>
+          <dt>Image Type</dt>
+          <dd>{{event.type.substring(event.type.indexOf(':'),event.type.indexOf(' ; ') )}}</dd>
+        </dl>
+        <dl>
+          <dt>Severity</dt>
+          <dd>{{event.type.substr(event.type.lastIndexOf(':'))}}</dd>
+        </dl>
+        <dl>
+          <dt>Device Name</dt>
+          <dd>{{event.source.name}}</dd>
+        </dl>
+      </div>
+    </slide>
+  </carousel>
+</div> -->
+
+ <div style="margin-left: 70px;" >
   <mat-vertical-stepper [linear]="isLinear" #stepper (selectionChange)="stepperselectected($event)" [selectedIndex]="selectedIndex" >
     <ng-template matStepperIcon="edit">
       <mat-icon></mat-icon>
     </ng-template>
     
     <mat-step  *ngFor ="let event of evantData">    
-       <ng-template matStepLabel>    <label class="label-time">{{event.creationTime | date:'d MMMM yyyy\n HH:mm'}}</label>    {{event.type}} </ng-template>
+       <ng-template matStepLabel>    <label class="label-time">{{event.creationTime | date:'d MMMM \n yyyy HH:mm'}}</label>    {{event.type}} </ng-template>
     
         <div class="details-div">
           <label class="heading-label">DETAILS</label>
@@ -45,7 +78,7 @@
            
               <dl>
                 <dt>Time</dt>
-                <dd>{{event.time}}</dd>
+                <dd>{{event.time | date:'d MMMM yyyy HH:mm'}}</dd>
               </dl>
               <dl>
                 <dt>Image Type</dt>
@@ -61,7 +94,7 @@
               </dl>
             </div>
             <div class="child">
-              <img [src]="_DomSanitizationService.bypassSecurityTrustUrl(this.url)" class="stepper-img" (click)="openDialog(event.text)"  matTooltip="Click to zoom it">
+              <img [src]="_DomSanitizationService.bypassSecurityTrustUrl(this.url)" (error)="errorInloading($event)" class="stepper-img" (click)="openDialog(event.text)"  matTooltip="Click to zoom it">
             </div>
           </div>
           
