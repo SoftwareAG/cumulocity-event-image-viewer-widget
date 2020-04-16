@@ -1,7 +1,7 @@
-import { MatStepper, MatDialog, MatDialogRef } from '@angular/material';
-import { GpS3ImageViewerService } from './gp-s3-image-viewer.service';
-import { EventService } from '@c8y/client';
-import { DomSanitizer } from '@angular/platform-browser';
+import { MatStepper, MatDialog, MatDialogRef } from "@angular/material";
+import { GpS3ImageViewerService } from "./gp-s3-image-viewer.service";
+import { EventService } from "@c8y/client";
+import { DomSanitizer } from "@angular/platform-browser";
 export interface DialogData {
     url: string;
 }
@@ -19,8 +19,12 @@ export declare class GpS3ImageViewerComponent {
     selectedIndex: number;
     realtimeState: boolean;
     evantData: any[];
+    displayData: any[];
     slideshow: boolean;
     noWrapSlides: boolean;
+    firstCall: boolean;
+    fromDate: string;
+    toDate: string;
     stepper: MatStepper;
     ngOnInit(): void;
     refresh(): Promise<void>;
@@ -28,6 +32,8 @@ export declare class GpS3ImageViewerComponent {
     loadImage(): void;
     setSlideShow(): void;
     fetchImg(url: any): Promise<void>;
+    dateChanged(x: any, event: any): void;
+    filter(): void;
     openDialog(key: any): void;
     fetchEvents(): Promise<void>;
     toggle(): void;

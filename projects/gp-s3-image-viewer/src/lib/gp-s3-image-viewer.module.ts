@@ -2,18 +2,29 @@ import { NgModule } from '@angular/core';
 import { HOOK_COMPONENT, CoreModule } from '@c8y/ngx-components';
 import { GpS3ImageViewerComponent, ImageViewerDialog } from './gp-s3-image-viewer.component';
 import { GpS3ImageViewerConfigComponent } from './gp-s3-image-viewer-config/gp-s3-image-viewer-config.component';
-import {MatStepperModule, MatExpansionModule,MatCardModule,MatDialogModule, MatTooltipModule,MatDatepickerModule,MatNativeDateModule,MatInputModule, MatButtonModule,MatRadioModule} from '@angular/material';
-import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatStepperModule,
+        MatExpansionModule,
+        MatCardModule,
+        MatDialogModule,
+        MatTooltipModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        MatInputModule,
+        MatButtonModule,
+        MatRadioModule} from '@angular/material';
+import {MatFormFieldModule} from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatIconModule} from '@angular/material/icon';
 import { GpS3ImageViewerService } from './gp-s3-image-viewer.service';
-import { HttpClientModule }    from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
 import { CarouselImageViewer } from './carousel-image-viewer';
+import { ReactiveFormsModule } from '@angular/forms';
 @NgModule({
-  declarations: [GpS3ImageViewerComponent, GpS3ImageViewerConfigComponent, ImageViewerDialog,CarouselImageViewer],
+  declarations: [GpS3ImageViewerComponent, GpS3ImageViewerConfigComponent, ImageViewerDialog, CarouselImageViewer],
   imports: [
       CoreModule,
+      ReactiveFormsModule,
       MatStepperModule,
       MatFormFieldModule,
       BrowserAnimationsModule,
@@ -31,7 +42,7 @@ import { CarouselImageViewer } from './carousel-image-viewer';
       CarouselModule.forRoot()
   ],
   exports: [GpS3ImageViewerComponent, GpS3ImageViewerConfigComponent],
-  entryComponents: [GpS3ImageViewerComponent, GpS3ImageViewerConfigComponent, ImageViewerDialog,CarouselImageViewer],
+  entryComponents: [GpS3ImageViewerComponent, GpS3ImageViewerConfigComponent, ImageViewerDialog, CarouselImageViewer],
   providers: [
     GpS3ImageViewerService,
     {

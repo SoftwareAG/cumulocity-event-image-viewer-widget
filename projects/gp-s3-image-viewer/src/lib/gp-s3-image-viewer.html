@@ -7,20 +7,6 @@
     {{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}
   </button> -->
   <div style="height: 40px;">
-    
-    <!-- <mat-form-field appearance="outline" class="dateChooserStyling">
-      <input matInput [matDatepicker]="fromPicker" placeholder="From" >
-      <mat-datepicker-toggle matSuffix [for]="fromPicker"></mat-datepicker-toggle>
-      <mat-datepicker #fromPicker></mat-datepicker>
-    </mat-form-field>
-      <mat-form-field appearance="outline" class="dateChooserStyling">
-        <input matInput [matDatepicker]="toPicker" placeholder="To" >
-        <mat-datepicker-toggle matSuffix [for]="toPicker"></mat-datepicker-toggle>
-        <mat-datepicker #toPicker></mat-datepicker>
-    </mat-form-field>
-    <button type="button" title="Filter date range" class="btn btn-default " (click)="filter(fromPicker, toPicker)">
-      <i c8y-icon="filter" class="fa fw fa-filter"></i>
-    </button> -->
     <div style ="float: right; margin-right: 10px;">
       <button type="button" class="btn btn-link c8y-realtime" title="Toggle realtime" (click)="toggle()" >
         <span [ngClass]="realtimeState?'c8y-pulse active' : 'c8y-pulse inactive'" ></span>
@@ -32,6 +18,23 @@
       <button mat-icon-button style="float: right; margin-right: 10px;color:#1776BF;" type="button" class="button" (click) = "refresh()" ><span class="fa fa-refresh"></span></button>
       </div>
   </div>
+  <div style="margin-left: 15px;">
+    <mat-form-field appearance="outline" class="dateChooserStyling">
+      <input matInput [matDatepicker]="fromPicker" placeholder="From"  (dateInput) ="dateChanged('from',$event)"/>
+      <mat-datepicker-toggle matSuffix [for]="fromPicker"></mat-datepicker-toggle>
+      <mat-datepicker #fromPicker></mat-datepicker>
+    </mat-form-field>
+      <mat-form-field appearance="outline" class="dateChooserStyling">
+        <input matInput [matDatepicker]="toPicker" placeholder="To" (dateInput) ="dateChanged('to',$event)" />
+        <mat-datepicker-toggle matSuffix [for]="toPicker"></mat-datepicker-toggle>
+        <mat-datepicker #toPicker></mat-datepicker>
+    </mat-form-field>
+    <button type="button" title="Filter date range" class="btn btn-default " (click)="filter()">
+      <i c8y-icon="filter" class="fa fw fa-filter"></i>
+    </button>
+  
+  </div>
+    
   
 <!-- Carousel -->
 <!-- (activeSlideChange)= "carouselChanged($event)" -->
@@ -67,7 +70,7 @@
       <mat-icon></mat-icon>
     </ng-template>
     
-    <mat-step  *ngFor ="let event of evantData">    
+    <mat-step  *ngFor ="let event of displayData">    
        <ng-template matStepLabel>    <label class="label-time">{{event.creationTime | date:'d MMMM \n yyyy HH:mm'}}</label>    {{event.type}} </ng-template>
     
         <div class="details-div">
