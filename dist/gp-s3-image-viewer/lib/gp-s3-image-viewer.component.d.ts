@@ -1,7 +1,7 @@
-import { MatStepper, MatDialog, MatDialogRef } from "@angular/material";
-import { GpS3ImageViewerService } from "./gp-s3-image-viewer.service";
-import { EventService } from "@c8y/client";
-import { DomSanitizer } from "@angular/platform-browser";
+import { MatStepper, MatDialog, MatDialogRef } from '@angular/material';
+import { GpS3ImageViewerService } from './gp-s3-image-viewer.service';
+import { EventService } from '@c8y/client';
+import { DomSanitizer } from '@angular/platform-browser';
 export interface DialogData {
     url: string;
 }
@@ -11,7 +11,6 @@ export declare class GpS3ImageViewerComponent {
     imageViewrService: GpS3ImageViewerService;
     _DomSanitizationService: DomSanitizer;
     constructor(dialog: MatDialog, events: EventService, imageViewrService: GpS3ImageViewerService, _DomSanitizationService: DomSanitizer);
-    images: string[];
     config: any;
     isLinear: boolean;
     panelOpenState: boolean;

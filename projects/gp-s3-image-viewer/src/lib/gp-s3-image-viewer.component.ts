@@ -72,11 +72,11 @@ export class GpS3ImageViewerComponent {
     this.url = '';
     if (this.config.imgSrcType === 'baseUrl') {
       this.fetchImg(
-        this.config.baseUrl + this.evantData[this.selectedIndex].text
+        this.config.baseUrl + this.evantData[this.selectedIndex].Image
       );
     } else {
       this.url = this.imageViewrService.getImage(
-        this.evantData[this.selectedIndex].text
+        this.evantData[this.selectedIndex].Image
       );
     }
   }
@@ -130,6 +130,7 @@ export class GpS3ImageViewerComponent {
   async fetchEvents() {
     // this.config.device.id
     // 1644
+    //211
     this.events.listBySource$(
       this.config.device.id,
         { pageSize: 2000 },
@@ -150,7 +151,8 @@ export class GpS3ImageViewerComponent {
               : 0;
           });
           this.displayData = this.evantData;
-          this.loadImage();
+          setTimeout(() => this.loadImage(), 2000);
+        //  this.loadImage();
         }
       });
   }

@@ -28,6 +28,16 @@ const auth2 = new BasicAuth({
 const client2 = new Client(auth2, 'http://localhost:4200');
 client2.setAuth(auth2);
 const fetchClient2 = client2.core;
+
+const auth3 = new BasicAuth({
+  user: 'khushi.khanna@softwareag.com',
+  password: 'khu123456',
+  tenant: 't75534393'
+});
+
+const client3 = new Client(auth3, 'http://localhost:4200');
+client3.setAuth(auth3);
+const fetchClient3 = client3.core;
 @NgModule({
   declarations: [
     AppComponent
@@ -47,9 +57,8 @@ const fetchClient2 = client2.core;
     {
       provide: EventService,
       useFactory: () => {
-          return new EventService(fetchClient2, client2.realtime);
+          return new EventService(fetchClient3, client3.realtime);
           }
-  
       }
   ],
   bootstrap: [AppComponent]

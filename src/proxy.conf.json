@@ -1,6 +1,6 @@
 {
     "/": {
-    "target": "https://demosvcs.cumulocity.com/",
+    "target": "https://image-recognition.eu-latest.cumulocity.com/",
     "secure": false,
     "changeOrigin": true,
     "logLevel": "info"

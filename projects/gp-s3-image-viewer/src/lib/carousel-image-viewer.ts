@@ -39,15 +39,15 @@ export class CarouselImageViewer {
   carouselChanged(event) {
     if (this.data.baseUrl === '') {
       this.url = '';
-      const type = this.data.eventData[event].type;
-      this.imageType = type.substring(type.indexOf(':'), type.indexOf(' ; '));
+      // const type = this.data.eventData[event].Classification;
+      this.imageType = this.data.eventData[event].Classification;
       this.time = this.data.eventData[event].time;
 
       this.url = this.imageViewrService.getImage(
-        this.data.eventData[event].text
+        this.data.eventData[event].Image
       );
     } else {
-      this.fetchImg(this.data.baseUrl + this.data.eventData[event].text);
+      this.fetchImg(this.data.baseUrl + this.data.eventData[event].Image);
     }
   }
   async fetchImg(url) {

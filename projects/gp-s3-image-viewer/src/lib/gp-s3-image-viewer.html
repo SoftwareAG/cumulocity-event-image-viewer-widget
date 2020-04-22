@@ -71,7 +71,7 @@
     </ng-template>
     
     <mat-step  *ngFor ="let event of displayData">    
-       <ng-template matStepLabel>    <label class="label-time">{{event.creationTime | date:'d MMMM \n yyyy HH:mm'}}</label>    {{event.type}} </ng-template>
+       <ng-template matStepLabel>    <label class="label-time">{{event.creationTime | date:'d MMMM \n yyyy HH:mm'}}</label>    {{event.text}} </ng-template>
     
         <div class="details-div">
           <label class="heading-label">DETAILS</label>
@@ -84,12 +84,16 @@
                 <dd>{{event.time | date:'d MMMM yyyy HH:mm'}}</dd>
               </dl>
               <dl>
-                <dt>Image Type</dt>
-                <dd>{{event.type.substring(event.type.indexOf(':'),event.type.indexOf(' ; ') )}}</dd>
+                <dt>Classification </dt>
+                <dd>{{event.Classification}}</dd>
+              </dl>
+              <dl>
+                <dt>Type </dt>
+                <dd>{{event.type}}</dd>
               </dl>
               <dl>
                 <dt>Severity</dt>
-                <dd>{{event.type.substr(event.type.lastIndexOf(':'))}}</dd>
+                <dd>{{event.Severity}}</dd>
               </dl>
               <dl>
                 <dt>Device Name</dt>
@@ -97,7 +101,7 @@
               </dl>
             </div>
             <div class="child">
-              <img [src]="_DomSanitizationService.bypassSecurityTrustUrl(this.url)" (error)="errorInloading($event)" class="stepper-img" (click)="openDialog(event.text)"  matTooltip="Click to zoom it">
+              <img [src]="_DomSanitizationService.bypassSecurityTrustUrl(this.url)" (error)="errorInloading($event)" class="stepper-img" (click)="openDialog(event.Image)"  matTooltip="Click to zoom it">
             </div>
           </div>
           
