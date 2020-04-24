@@ -97,13 +97,7 @@ ol {
 .carousel-item.active{
     display: block;
 }
-.left{
-left: 0;
-}
-.right
-{
-    right: 0;
-}
+
 .carousel-caption{
     position: absolute;
     right: 15%;

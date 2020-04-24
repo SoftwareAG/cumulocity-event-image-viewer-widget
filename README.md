@@ -43,7 +43,7 @@ This is an Angular 7 widget, which is designed to display the Events that are cr
     ```
  **Note: This widget can be used as a custom widget in both cockpit and cumulocity-app-builder application**
 
-## Event Image Viewer as a custom widget  for Cockpit Application
+## Event Image Viewer as a custom widget for Cockpit Application
   
   1. Use your existing cockpit application or please refer  [Cumulocity  Guide](https://cumulocity.com/guides/web/how-to/#add-a-custom-widget) to create a new cockpit application.
   2. Make sure to install all pre-specified Mandatory Library in your cockpit application.
@@ -250,7 +250,7 @@ Example:
 
 ```cmd 
 
-npm i C:\Users\KHKH\Documents\TestingCockpitApplication\commonLibrary/gp-s3-image-viewer-0.91.0.tgz
+npm i C:\Users\KHKH\Documents\TestingCockpitApplication\commonLibrary\gp-s3-image-viewer-0.91.0.tgz
 
  ``` 
 
@@ -337,7 +337,7 @@ Update package.json start script
 
 Run `npm run build ` 
 
-##### 6. Deploy widget to the cockpit
+##### 6. Deploy widget to the App Builder
 
 1. Using `package.json Scripts`
 

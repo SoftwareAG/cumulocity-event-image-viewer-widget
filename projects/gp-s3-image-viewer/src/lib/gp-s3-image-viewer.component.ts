@@ -89,8 +89,8 @@ export class GpS3ImageViewerComponent {
         eventData: this.evantData,
         baseUrl:
           this.config.imgSrcType === 'baseUrl' ? this.config.baseUrl : '',
-        width: Number(this.config.width) - 70 + 'px',
-        height: Number(this.config.height) - 70 + 'px',
+        width: Number(this.config.width) - 100 + 'px',
+        height: Number(this.config.height) - 100 + 'px',
       },
     });
 
