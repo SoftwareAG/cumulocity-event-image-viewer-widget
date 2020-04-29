@@ -43,6 +43,37 @@ This is an Angular 7 widget, which is designed to display the Events that are cr
     ```
  **Note: This widget can be used as a custom widget in both cockpit and cumulocity-app-builder application**
 
+## Custom Fields in Event
+  As of now following Custom fields are needed in Event
+
+  - Classification - It will have the response of image detection whether it has passed , failed or any other observation
+
+  - Image - this will have the image name regardless of whether the image is stored in S3 or some other storage.
+
+            If the image is stored at S3 it will use this image name as key to get the base 64 encoded image from the S3 eg:-  "test-development/0423125839.png" where test-development is the folder name where image is kept in S3 and 0423125839.png in the image name.
+
+            If it is stored somewhere else then this image name is appended with the Third-party API that is mentioned in Base Url to get base 64 encoded image.
+
+  - time - time when event was created
+  - id - Device ID
+  - text - Information that you want to display in header
+  - type - Type of Event
+
+For eg - this the JSON format that will be used in backend to create an event
+
+```
+{
+	"source": {
+    	"id":"10200" },
+    "Classification": "Pass"
+    "Image": "test-development/0423125839.png"
+    "type": "C8y_Image Even",
+    "text": "Camera detected Welding - Pass",
+    "time": "2014-03-03T12:03:27.845Z"
+}
+```
+ **Note: You can't directly pass the base64 in the JSON object.
+
 ## Event Image Viewer as a custom widget for Cockpit Application
   
   1. Use your existing cockpit application or please refer  [Cumulocity  Guide](https://cumulocity.com/guides/web/how-to/#add-a-custom-widget) to create a new cockpit application.
