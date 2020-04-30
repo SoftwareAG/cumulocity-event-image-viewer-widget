@@ -37,6 +37,7 @@ export class CarouselImageViewer {
     this.url = 'data:image/png;base64, ' + DefaultImage.defaultImage;
   }
   carouselChanged(event) {
+    if ( this.data.eventData.length > 0 && this.data.eventData[event].Image !== undefined) {
     if (this.data.baseUrl === '') {
       this.url = '';
       // const type = this.data.eventData[event].Classification;
@@ -49,6 +50,7 @@ export class CarouselImageViewer {
     } else {
       this.fetchImg(this.data.baseUrl + this.data.eventData[event].Image);
     }
+  }
   }
   async fetchImg(url) {
     const x = await this.imageViewrService.fetchImageFromBaseUrl(url).toPromise();

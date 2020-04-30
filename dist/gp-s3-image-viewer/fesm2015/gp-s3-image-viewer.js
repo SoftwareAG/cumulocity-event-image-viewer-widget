@@ -125,15 +125,17 @@ class CarouselImageViewer {
      * @return {?}
      */
     carouselChanged(event) {
-        if (this.data.baseUrl === '') {
-            this.url = '';
-            // const type = this.data.eventData[event].Classification;
-            this.imageType = this.data.eventData[event].Classification;
-            this.time = this.data.eventData[event].time;
-            this.url = this.imageViewrService.getImage(this.data.eventData[event].Image);
-        }
-        else {
-            this.fetchImg(this.data.baseUrl + this.data.eventData[event].Image);
+        if (this.data.eventData.length > 0 && this.data.eventData[event].Image !== undefined) {
+            if (this.data.baseUrl === '') {
+                this.url = '';
+                // const type = this.data.eventData[event].Classification;
+                this.imageType = this.data.eventData[event].Classification;
+                this.time = this.data.eventData[event].time;
+                this.url = this.imageViewrService.getImage(this.data.eventData[event].Image);
+            }
+            else {
+                this.fetchImg(this.data.baseUrl + this.data.eventData[event].Image);
+            }
         }
     }
     /**
@@ -226,11 +228,13 @@ class GpS3ImageViewerComponent {
      */
     loadImage() {
         this.url = '';
-        if (this.config.imgSrcType === 'baseUrl') {
-            this.fetchImg(this.config.baseUrl + this.evantData[this.selectedIndex].Image);
-        }
-        else {
-            this.url = this.imageViewrService.getImage(this.evantData[this.selectedIndex].Image);
+        if (this.evantData.length > 0 && this.evantData[this.selectedIndex].Image !== undefined) {
+            if (this.config.imgSrcType === 'baseUrl') {
+                this.fetchImg(this.config.baseUrl + this.evantData[this.selectedIndex].Image);
+            }
+            else {
+                this.url = this.imageViewrService.getImage(this.evantData[this.selectedIndex].Image);
+            }
         }
     }
     /**
@@ -288,8 +292,11 @@ class GpS3ImageViewerComponent {
          * @return {?}
          */
         (singleEvent) => {
-            return (Date.parse(singleEvent.creationTime) > Date.parse(this.fromDate) &&
-                Date.parse(singleEvent.creationTime) < Date.parse(this.toDate));
+            if (singleEvent.creationTime !== undefined) {
+                return (Date.parse(singleEvent.creationTime) > Date.parse(this.fromDate) &&
+                    Date.parse(singleEvent.creationTime) < Date.parse(this.toDate));
+            }
+            return false;
         }));
     }
     /**
@@ -336,11 +343,14 @@ class GpS3ImageViewerComponent {
                      * @return {?}
                      */
                     (a, b) => {
-                        return a.creationTime > b.creationTime
-                            ? -1
-                            : a.creationTime < b.creationTime
-                                ? 1
-                                : 0;
+                        if (a.creationTime !== undefined && b.creationTime !== undefined) {
+                            return a.creationTime > b.creationTime
+                                ? -1
+                                : a.creationTime < b.creationTime
+                                    ? 1
+                                    : 0;
+                        }
+                        return 0;
                     }));
                     this.displayData = this.evantData;
                     setTimeout((/**
