@@ -138,7 +138,8 @@ export class GpS3ImageViewerComponent {
     //211
     this.events.listBySource$(
       this.config.device.id,
-        { pageSize: 2000 },
+        { pageSize: 2000,
+          type: this.config.eventType },
         {
           hot: true,
           realtime: true,
