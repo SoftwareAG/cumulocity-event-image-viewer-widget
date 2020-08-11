@@ -3,66 +3,14 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 
-import { BasicAuth, Client, InventoryService, EventService} from '@c8y/client';
-// import { GpS3ImageViewerModule } from 'projects/gp-s3-image-viewer/src/public_api';
-import { GpS3ImageViewerModule } from './../../projects/gp-s3-image-viewer/src/lib/gp-s3-image-viewer.module';
-
-
-
-const auth = new BasicAuth({
-  user: 'demo@democenter.com',
-  password: 'Demo2020!',
-  tenant: 't23534448'
-});
-
-const client = new Client(auth, 'http://localhost:4200');
-client.setAuth(auth);
-const fetchClient = client.core;
-
-const auth2 = new BasicAuth({
-  user: 'sabreen.irfana@softwareag.com',
-  password: 'Demo20202!',
-  tenant: 't220978005'
-});
-
-const client2 = new Client(auth2, 'http://localhost:4200');
-client2.setAuth(auth2);
-const fetchClient2 = client2.core;
-
-const auth3 = new BasicAuth({
-  user: 'khushi.khanna@softwareag.com',
-  password: 'khu123456',
-  tenant: 't75534393'
-});
-
-const client3 = new Client(auth3, 'http://localhost:4200');
-client3.setAuth(auth3);
-const fetchClient3 = client3.core;
 @NgModule({
   declarations: [
     AppComponent
   ],
   imports: [
-    BrowserModule,
-    GpS3ImageViewerModule
+    BrowserModule
   ],
-  providers: [
-    {
-    provide: InventoryService,
-    useFactory: () => {
-        return new InventoryService(fetchClient);
-        }
-
-    },
-    {
-      provide: EventService,
-      useFactory: () => {
-          return new EventService(fetchClient3, client3.realtime);
-          }
-      }
-  ],
+  providers: [],
   bootstrap: [AppComponent]
 })
-
-
 export class AppModule { }

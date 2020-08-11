@@ -16,16 +16,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'gp-s3-image-viewer-project'`, () => {
+  it(`should have as title 'gp-event-image-viewer'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('gp-s3-image-viewer-project');
+    expect(app.title).toEqual('gp-event-image-viewer');
   });
 
-  it('should render title in a h1 tag', () => {
+  it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain('Welcome to gp-s3-image-viewer-project!');
+    expect(compiled.querySelector('.content span').textContent).toContain('gp-event-image-viewer app is running!');
   });
 });

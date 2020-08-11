@@ -5,12 +5,12 @@
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
-    "module": "es2015",
-    "moduleResolution": "node",
-    "emitDecoratorMetadata": true,
+    "downlevelIteration": true,
     "experimentalDecorators": true,
+    "module": "esnext",
+    "moduleResolution": "node",
     "importHelpers": true,
-    "target": "es5",
+    "target": "es2015",
     "typeRoots": [
       "node_modules/@types"
     ],
@@ -19,12 +19,16 @@
       "dom"
     ],
     "paths": {
-      "gp-s3-image-viewer": [
-        "dist/gp-s3-image-viewer"
+      "gp-lib-event-image-viewer": [
+        "dist/gp-lib-event-image-viewer"
       ],
-      "gp-s3-image-viewer/*": [
-        "dist/gp-s3-image-viewer/*"
+      "gp-lib-event-image-viewer/*": [
+        "dist/gp-lib-event-image-viewer/*"
       ]
     }
+  },
+  "angularCompilerOptions": {
+    "fullTemplateTypeCheck": true,
+    "strictInjectionParameters": true
   }
 }

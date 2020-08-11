@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'gp-s3-image-viewer-project';
+  title = 'gp-event-image-viewer';
 }
