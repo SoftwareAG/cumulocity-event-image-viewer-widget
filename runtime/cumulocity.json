@@ -1,0 +1,12 @@
+{
+  "name": "Event Image Viewer Runtime Widget",
+  "contextPath": "event-image-viewer-runtime-widget",
+  "key": "event-image-viewer-runtime-widget-application-key",
+  "contentSecurityPolicy": "default-src 'self'",
+  "icon": {
+    "class": "fa fa-picture-o"
+  },
+  "manifest": {
+    "noAppSwitcher": true
+  }
+}

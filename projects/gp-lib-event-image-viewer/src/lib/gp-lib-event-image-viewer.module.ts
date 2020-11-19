@@ -7,27 +7,28 @@ import {MatStepperModule,
   MatCardModule,
   MatDialogModule,
   MatTooltipModule,
-  MatDatepickerModule,
-  MatNativeDateModule,
+  // MatDatepickerModule,
+  // MatNativeDateModule,
   MatInputModule,
   MatButtonModule,
   MatFormFieldModule,
   MatRadioModule} from '@angular/material';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import {MatIconModule} from '@angular/material/icon';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { GpLibEventImageViewerService } from './gp-lib-event-image-viewer.service';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
 import { CarouselImageViewer } from './carousel-image-viewer';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 @NgModule({
   declarations: [GpLibEventImageViewerComponent, GpLibEventImageViewerConfigComponent, CarouselImageViewer, ImageViewerDialog],
   imports: [
     CoreModule,
     ReactiveFormsModule,
     MatStepperModule,
-    MatFormFieldModule,
-    BrowserAnimationsModule,
+   // MatFormFieldModule,
     MatIconModule,
     MatExpansionModule,
     MatCardModule,

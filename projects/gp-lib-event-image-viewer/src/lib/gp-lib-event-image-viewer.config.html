@@ -18,7 +18,7 @@
             <label translate>Event Type</label>
             <input class="form-control" type="text" name="config.eventType" [(ngModel)]="config.eventType" />
         </div>
-        <mat-radio-group aria-label="Select an option" [(ngModel)]="config.imgSrcType">
+        <mat-radio-group aria-label="Select an option" [(ngModel)]="config.imgSrcType" name="srcType" ngDefaultControl>
             <mat-radio-button value="baseUrl"  >Base URL</mat-radio-button>
             <mat-radio-button value="s3key">S3 Key</mat-radio-button>
           </mat-radio-group>
