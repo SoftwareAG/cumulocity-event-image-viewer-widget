@@ -1,7 +1,24 @@
+/*
+* Copyright (c) 2019 Software AG, Darmstadt, Germany and/or its licensors
+*
+* SPDX-License-Identifier: Apache-2.0
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+*    http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+ */
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
-import { GpLibEventImageViewerService } from './gp-lib-event-image-viewer.service';
+import { GpEventImageViewerService } from './gp-event-image-viewer.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import * as DefaultImage from './gp-default-image';
 
@@ -26,7 +43,7 @@ export class CarouselImageViewer {
   imageMap = {};
   constructor(
     public dialogRef: MatDialogRef<CarouselImageViewer>,
-    public imageViewrService: GpLibEventImageViewerService,
+    public imageViewrService: GpEventImageViewerService,
     public _DomSanitizationService: DomSanitizer,
     @Inject(MAT_DIALOG_DATA) public data: DialogData
   ) {}
@@ -44,7 +61,6 @@ export class CarouselImageViewer {
       } else {
         if (this.data.baseUrl === '') {
           this.url = '';
-          // const type = this.data.eventData[event].Classification;
           this.imageType = this.data.eventData[event].Classification;
           this.time = this.data.eventData[event].time;
           this.url = this.imageViewrService.getImage(
@@ -58,8 +74,8 @@ export class CarouselImageViewer {
     }
   }
   async fetchImg(url) {
-    const x = await this.imageViewrService.fetchImageFromBaseUrl(url).toPromise();
-    this.url = 'data:image/png;base64, ' + x['encodedString'];
+    const x: any = await this.imageViewrService.fetchImageFromBaseUrl(url).toPromise();
+    this.url = 'data:image/png;base64, ' + x.encodedString;
     return this.url;
   }
 }

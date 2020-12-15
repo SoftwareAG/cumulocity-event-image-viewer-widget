@@ -17,7 +17,6 @@
     flex-grow: 1;
     flex-basis: 45%;
     margin-left: 10px;
-    /* margin-right: 20px; */
     margin-top: 10px;
   
 }
@@ -50,7 +49,6 @@
     height: 60px;
    
     border: 1px solid #677680;
-    /* float: right; */
     margin-right: 10px;
     border-radius: 10%;
     box-shadow: 1px 3px #888888;
@@ -66,12 +64,10 @@ dl{
 }
 dt{
     font-weight:  700;
-    /* color: #677680; */
     line-height: 1.428;
     display: inline;
 }
 dd{
-    /* color: #677680; */
     line-height: 1.428;
     display: inline;
     margin-left: 5px;
@@ -108,7 +104,6 @@ dd{
     border-left-width: 2px !important;
 }
 .label-time{
-    /* color: #677680; */
     line-height: 1.428;
     display: inline;
     position: absolute;
@@ -118,7 +113,6 @@ dd{
     width: 60px;
     white-space: initial;
     text-align: right;
-    /* margin-left: 5px; */
 }
 .mat-step-header{
     overflow: inherit !important;
@@ -203,7 +197,6 @@ a:not([href]) {
     height: 20px;
     background-repeat: no-repeat;
     background-size: 100% 100%;
-    /* background: no-repeat 50%/100% 100%; */
 }
 
 .carousel {

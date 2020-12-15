@@ -1,3 +1,20 @@
+/*
+* Copyright (c) 2019 Software AG, Darmstadt, Germany and/or its licensors
+*
+* SPDX-License-Identifier: Apache-2.0
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+*    http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+ */
 import {
   Component,
   OnInit,
@@ -12,18 +29,18 @@ import {
   MAT_DIALOG_DATA,
   MatDialogRef,
 } from '@angular/material';
-import { GpLibEventImageViewerService } from './gp-lib-event-image-viewer.service';
+import { GpEventImageViewerService } from './gp-event-image-viewer.service';
 import { EventService, Realtime } from '@c8y/client';
 import { DomSanitizer } from '@angular/platform-browser';
 import * as DefaultImage from './gp-default-image';
 import { CarouselImageViewer } from './carousel-image-viewer';
 @Component({
-  selector: 'lib-gp-lib-event-image-viewer',
-  templateUrl: './gp-lib-event-image-viewer.component.html',
-  styleUrls: ['./gp-lib-event-image-viewer.component.css'],
+  selector: 'lib-gp-event-image-viewer',
+  templateUrl: './gp-event-image-viewer.component.html',
+  styleUrls: ['./gp-event-image-viewer.component.css'],
   encapsulation: ViewEncapsulation.None
 })
-export class GpLibEventImageViewerComponent implements OnInit {
+export class GpEventImageViewerComponent implements OnInit {
   @Input() config;
   isLinear = false;
   panelOpenState = false;
@@ -44,7 +61,8 @@ export class GpLibEventImageViewerComponent implements OnInit {
     public dialog: MatDialog,
     public events: EventService,
     public realtimeService: Realtime,
-    public imageViewrService: GpLibEventImageViewerService,
+    public imageViewrService: GpEventImageViewerService,
+    // tslint:disable-next-line: variable-name
     public _DomSanitizationService: DomSanitizer
   ) { }
 
@@ -59,9 +77,9 @@ export class GpLibEventImageViewerComponent implements OnInit {
     await this.fetchEvents();
   }
   errorInloading(event) {
-    // this.url = 'data:image/png;base64, ' + DefaultImage.defaultImage;
     this.url = 'data:image/png;base64, ' + DefaultImage.defaultImage;
   }
+  // fetches image from base url and AWS storage
   async loadImage() {
     this.url = '';
     if ( this.evantData.length > 0 && this.evantData[this.selectedIndex].Image !== undefined) {
@@ -81,6 +99,7 @@ export class GpLibEventImageViewerComponent implements OnInit {
       }
     }
   }
+  // to show the events in the slide show.It will open a slide show pop-up
   setSlideShow() {
     this.slideshow = !this.slideshow;
     const dialogRef = this.dialog.open(CarouselImageViewer, {
@@ -98,10 +117,12 @@ export class GpLibEventImageViewerComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {});
   }
 
+  // this retrieves the base url image
   async fetchImg(url) {
-    const x = await this.imageViewrService.fetchImageFromBaseUrl(url).toPromise();
-    return 'data:image/png;base64, ' + x['encodedString'];
+    const x: any = await this.imageViewrService.fetchImageFromBaseUrl(url).toPromise();
+    return 'data:image/png;base64, ' + x.encodedString;
   }
+  // update 'from date' and 'to date' based on date selected
   dateChanged(x, event) {
     if (x === 'from') {
       this.fromDate = event.value;
@@ -109,6 +130,7 @@ export class GpLibEventImageViewerComponent implements OnInit {
       this.toDate = event.value;
     }
   }
+  // filters the event list based on selected dates
   filter() {
     this.displayData = this.evantData.filter((singleEvent) => {
       if ( singleEvent.creationTime !== undefined) {
@@ -131,16 +153,10 @@ export class GpLibEventImageViewerComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result) => {});
   }
 
+  // fetches event list from event servcice
   async fetchEvents() {
-    // this.config.device.id
-    // 1644
-    //211
-    // const eventURL = `/eventsWithChildren/` + this.config.device.id;
-    // const realTimeEventSub = this.realtimeService.subscribe(eventURL, (response) => {
-    //   console.log('------Realtime Event------');
-    //   console.log(response.data);
-    // });
-    this.events.listBySource$(
+        // tslint:disable-next-line: deprecation
+        this.events.listBySource$(
       this.config.device.id,
         { pageSize: 2000,
           type: this.config.eventType },
@@ -151,7 +167,6 @@ export class GpLibEventImageViewerComponent implements OnInit {
       )
       .subscribe((data) => {
         if (this.realtimeState) {
-          console.log(data);
           this.evantData = [...data];
           this.evantData.sort((a, b): number => {
             if ( a.creationTime !== undefined && b.creationTime !== undefined) {
@@ -165,7 +180,6 @@ export class GpLibEventImageViewerComponent implements OnInit {
           });
           this.displayData = this.evantData;
           setTimeout(() => this.loadImage(), 2000);
-        //  this.loadImage();
         }
       });
   }
@@ -175,7 +189,7 @@ export class GpLibEventImageViewerComponent implements OnInit {
       this.fetchEvents();
     }
   }
-
+  // On selection of particular event it will show the image in the dialog
   stepperselectected(event) {
     this.url = '';
     this.selectedIndex = event.selectedIndex;
@@ -196,6 +210,7 @@ export interface DialogData {
 export class ImageViewerDialog {
   constructor(
     public dialogRef: MatDialogRef<ImageViewerDialog>,
+    // tslint:disable-next-line: variable-name
     public _DomSanitizationService: DomSanitizer,
     @Inject(MAT_DIALOG_DATA) public data: DialogData
   ) {}

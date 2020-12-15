@@ -1,7 +1,24 @@
+/*
+* Copyright (c) 2019 Software AG, Darmstadt, Germany and/or its licensors
+*
+* SPDX-License-Identifier: Apache-2.0
+*
+* Licensed under the Apache License, Version 2.0 (the "License");
+* you may not use this file except in compliance with the License.
+* You may obtain a copy of the License at
+*
+*    http://www.apache.org/licenses/LICENSE-2.0
+*
+* Unless required by applicable law or agreed to in writing, software
+* distributed under the License is distributed on an "AS IS" BASIS,
+* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+* See the License for the specific language governing permissions and
+* limitations under the License.
+ */
 import { NgModule } from '@angular/core';
 import { HOOK_COMPONENTS, CoreModule } from '@c8y/ngx-components';
-import { GpLibEventImageViewerComponent, ImageViewerDialog } from './gp-lib-event-image-viewer.component';
-import { GpLibEventImageViewerConfigComponent } from './gp-lib-event-image-viewer.config';
+import { GpEventImageViewerComponent, ImageViewerDialog } from './gp-event-image-viewer.component';
+import { GpEventImageViewerConfigComponent } from './gp-event-image-viewer.config';
 import {MatStepperModule,
   MatExpansionModule,
   MatCardModule,
@@ -17,13 +34,13 @@ import {MatStepperModule,
 import {MatIconModule} from '@angular/material/icon';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
-import { GpLibEventImageViewerService } from './gp-lib-event-image-viewer.service';
+import { GpEventImageViewerService } from './gp-event-image-viewer.service';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
 import { CarouselImageViewer } from './carousel-image-viewer';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 @NgModule({
-  declarations: [GpLibEventImageViewerComponent, GpLibEventImageViewerConfigComponent, CarouselImageViewer, ImageViewerDialog],
+  declarations: [GpEventImageViewerComponent, GpEventImageViewerConfigComponent, CarouselImageViewer, ImageViewerDialog],
   imports: [
     CoreModule,
     ReactiveFormsModule,
@@ -42,10 +59,10 @@ import { MatNativeDateModule } from '@angular/material/core';
     HttpClientModule,
     CarouselModule.forRoot()
   ],
-  exports: [GpLibEventImageViewerComponent, GpLibEventImageViewerConfigComponent],
-  entryComponents: [GpLibEventImageViewerComponent, GpLibEventImageViewerConfigComponent, ImageViewerDialog, CarouselImageViewer],
+  exports: [GpEventImageViewerComponent, GpEventImageViewerConfigComponent],
+  entryComponents: [GpEventImageViewerComponent, GpEventImageViewerConfigComponent, ImageViewerDialog, CarouselImageViewer],
   providers: [
-    GpLibEventImageViewerService,
+    GpEventImageViewerService,
     {
       provide: HOOK_COMPONENTS,
       multi: true,
@@ -53,8 +70,8 @@ import { MatNativeDateModule } from '@angular/material/core';
           id: 's3-image-viewer-widget',
           label: 'Event Image Viewer',
           description: 'Event Image Viewer',
-          component: GpLibEventImageViewerComponent,
-          configComponent: GpLibEventImageViewerConfigComponent,
+          component: GpEventImageViewerComponent,
+          configComponent: GpEventImageViewerConfigComponent,
           data: {
               ng1: {
                   options: {
@@ -68,4 +85,4 @@ import { MatNativeDateModule } from '@angular/material/core';
         }
     }]
 })
-export class GpLibEventImageViewerModule { }
+export class GpEventImageViewerModule { }

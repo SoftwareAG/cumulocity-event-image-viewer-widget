@@ -1,8 +1,0 @@
-{
-  "name": "gp-lib-event-image-viewer",
-  "version": "0.20.0",
-  "peerDependencies": {
-    "@angular/common": "^8.2.14",
-    "@angular/core": "^8.2.14"
-  }
-}

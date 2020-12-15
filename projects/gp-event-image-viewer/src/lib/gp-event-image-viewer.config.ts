@@ -15,6 +15,23 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
  */
-export const environment = {
-  production: true
-};
+import { Component, OnInit, Input } from '@angular/core';
+
+@Component({
+  selector: 'lib-gp-event-image-viewer-config',
+  templateUrl: './gp-event-image-viewer.config.html',
+  styleUrls: ['./gp-event-image-viewer.config.css']
+
+})
+
+export class GpEventImageViewerConfigComponent implements OnInit {
+@Input() config: any = {};
+  constructor() {
+    this.config.imgSrcType = 'baseUrl';
+  }
+
+  ngOnInit() {
+
+  }
+
+}
