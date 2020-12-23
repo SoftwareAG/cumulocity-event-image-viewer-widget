@@ -1,7 +1,7 @@
 # Cumulocity Widget - S3 Image Viewer[<img width="35" src="https://user-images.githubusercontent.com/67993842/97668428-f360cc80-1aa7-11eb-8801-da578bda4334.png"/>](https://github.com/SoftwareAG/cumulocity-event-image-viewer-widget/releases/download/1.0.0/event-image-viewer-runtime-widget-1.0.0.zip)
 
 ##  Overview
-This widget is designed to display the Events that are created whenever the image is captured by the camera device which in turn triggers the webm.io workflow and the captured image which is stored in AWS S3 or any other storage medium is displayed in the widget. The image is classified good or bad based on AI Predictive analytics. 
+This widget is designed to display the events that are created whenever the image is captured by the camera device which in turn triggers the webm.io workflow and the captured image which is stored in AWS S3 or any other storage medium is displayed in the widget. The image is classified good or bad based on AI Predictive analytics. 
 
 ## USeCase
 ![s3_image_viewer_widget](https://user-images.githubusercontent.com/70568133/102998337-fe3a5980-454c-11eb-8fee-51ad96c5c927.PNG)
