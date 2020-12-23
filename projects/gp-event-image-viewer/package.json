@@ -1,7 +1,7 @@
 {
   "name": "gp-event-image-viewer",
   "version": "1.0.0",
-  "description": "Runtime package.json for library widget (written by Software AG Global Presales)",
+  "description": "This widget is designed to display the Events that are created whenever the image is captured by the camera device.",
   "author": "Darpankumar Lalani - Software AG, Global Presales",
   "license": "Apache 2.0",
   "peerDependencies": {

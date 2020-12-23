@@ -44,6 +44,7 @@ export class CarouselImageViewer {
   constructor(
     public dialogRef: MatDialogRef<CarouselImageViewer>,
     public imageViewrService: GpEventImageViewerService,
+    // tslint:disable-next-line: variable-name
     public _DomSanitizationService: DomSanitizer,
     @Inject(MAT_DIALOG_DATA) public data: DialogData
   ) {}
