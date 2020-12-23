@@ -1,258 +1,244 @@
-# Cumulocity Widget - Event Image Viewer 
-## Overview
-This is an Angular 7 widget, which is designed to display the Events that are created whenever the image is captured by the camera device which in turn tiggers the webm.io workflow and the captured image which is stored in AWS S3 or any other storage medium is displayed in the widget. The image is classified good or bad based on AI Predictive analytics. 
-## Prerequisites:
-##### Nodejs and npm package Installation
- -  Go through the following link to Install Nodejs and npm package
-     [Nodejs and npm package Installtion](https://treehouse.github.io/installation-guides/windows/node-windows.html)
-    ##### Angular version 
-  - Angular CLI version 7.3.9 (Angular 7).
-    Installation command:
-     ```cmd
-    npm install -g  @angular/cli@7.3.9 
-    ``` 
-   ##### Mandatory Library for Widget
-  - Angular CDK version 7.3.7
-    Installation command:  ```npm i @angular/cdk@7.3.7 ``` 
-  - Angular Material version 7.3.7
-    Installation command: ```npm i @angular/material@7.3.7 ``` 
+# Cumulocity Widget - S3 Image Viewer[<img width="35" src="https://user-images.githubusercontent.com/67993842/97668428-f360cc80-1aa7-11eb-8801-da578bda4334.png"/>](https://github.com/SoftwareAG/cumulocity-safe-interaction-overview-widget/releases/download/1.0.0/gp-safe-interation-overview-runtime-widget-1.0.0.zip)
+
+##  Overview
+This widget is designed to display the Events that are created whenever the image is captured by the camera device which in turn triggers the webm.io workflow and the captured image which is stored in AWS S3 or any other storage medium is displayed in the widget. The image is classified good or bad based on AI Predictive analytics. 
+
+## Features
+
+ *  **Displays the events:**
+ *  **Display the captured images :** 
+ * **Uses AI Predictive analytics for image classification** 
+ 
+## Installation
+## Runtime Widget Installation (Without Application Deployment)
+
+* This widget support runtime deployment. Download [Runtime Binary](https://github.com/SoftwareAG/cumulocity-safe-interaction-overview-widget/releases/download/1.0.0/gp-safe-interation-overview-runtime-widget-1.0.0.zip) and follow runtime deployment instruction from [here](https://github.com/SoftwareAG/cumulocity-runtime-widget-loader)
+
   
-  - aws-sdk version 2.627.0
-    Installation command: ```npm i aws-sdk@2.627.0 ```
-  - Cumulocity Library:         
-    ```cmd
-    npm install @c8y/client@1005.0.13
-    npm install @c8y/ngx-components@1005.0.3
-    npm install @c8y/style@1005.0.3
-    npm install @c8y/ng1-modules
-    ```
- **Note: This widget can be used as a custom widget in both cockpit and cumulocity-app-builder application**
-## Custom Fields in Event
-  As of now following Custom fields are needed in Event
-  - Classification - It will have the response of image detection whether it has passed , failed or any other observation
-  - Image - this will have the image name regardless of whether the image is stored in S3 or some other storage.
-            If the image is stored at S3 it will use this image name as key to get the base 64 encoded image from the S3 eg:-  "test-development/0423125839.png" where test-development is the folder name where image is kept in S3 and 0423125839.png in the image name.
-            If it is stored somewhere else then this image name is appended with the Third-party API that is mentioned in Base Url to get base 64 encoded image.
-  - time - time when event was created
-  - id - Device ID
-  - text - Information that you want to display in header
-  - type - Type of Event
-For eg - this the JSON format that will be used in backend to create an event
-```
-{
-	"source": {
-    	"id":"10200" },
-    "Classification": "Pass"
-    "Image": "test-development/0423125839.png"
-    "type": "C8y_Image Even",
-    "text": "Camera detected Welding - Pass",
-    "time": "2014-03-03T12:03:27.845Z"
-}
-```
- **Note: You can't directly pass the base64 in the JSON object.
-## Event Image Viewer as a custom widget for Cockpit Application
+**Supported Cumulocity Environments:**
   
-  1. Use your existing cockpit application or please refer  [Cumulocity  Guide](https://cumulocity.com/guides/web/how-to/#add-a-custom-widget) to create a new cockpit application.
-  2. Make sure to install all pre-specified Mandatory Library in your cockpit application.
-    So that your application has the following entries in `package.json `.
+*  **App Builder:** Tested with Cumulocity App Builder version 1.2.1.
+  
+*  **Cockpit Application:** Tested with Cockpit 1006.11.0 with [Patch Fix](https://www.npmjs.com/package/cumulocity-runtime-widget-loader).
+
+**Prerequisites:**
+  
+* Git
+  
+* NodeJS (release builds are currently built with `v10.19.0`)
+  
+* NPM (Included with NodeJS)
+
+**External dependencies:**
+
 ```
-"@angular/cdk": "7.3.7",
-"@angular/material": "7.3.7",
-"core-js": "^2.6.2",
-"aws-sdk": "^2.627.0",
-"@c8y/ngx-components": "^1005.0.3",
-"@c8y/ng1-modules": "^1005.0.3",
-"@c8y/style": "^1005.0.3",
- ```
- **Note: Even if some of the libraries are available please do install, that will only update the library which is already available with latest changes and also update its dependencies.
-**
-### Installation
-1.  Download the Widget source code from the Repository within this project.
-2.  Create a Minorbuild binary file from the source code.
-      
-       Follow the below-specified command to create a Minorbuild binary file
-      i) run npm i command to install all library files specified in source code
-      ```npm i ``` 
-      ii) run npm run buildMinor command to create a binary file under dist folder
-     ```npm run buildMinor ``` 
-      iii) Copy the binary file **gp-s3-image-viewer-0.x.x.tgz** the latest one from the dist folder and Place the binary file under any folder.
-3. This could be used in conjunction with the application builder/cockpit.
- ## Deployment Of Event Image Viewer In Cockpit Application
-##### 1. Install the binary file in cockpit application
-To Install the binary file in cockpit application run the following command in cockpit application
-```npm i <binary file path> ``` 
-Example:
-```cmd 
-npm i C:\Users\KHKH\Documents\TestingCockpitApplication\commonLibrary/gp-s3-image-viewer-0.91.0.tgz
- ``` 
-After installation see that your cockpit application has following entry in `package.json `.
-```cmd 
-"gp-s3-image-viewer": "file:../commonLibrary/gp-s3-image-viewer-0.283.0.tgz",
- ``` 
-##### 2. Import Event Image Viewer Module
-Import GpS3ImageViewerModule in app.module.ts and also place the imported Module under `@NgModule`.
+
+"@angular/cdk": "8.2.3"
+
+"@angular/material": "8.2.3",
+
+"@c8y/ngx-components": "^1006.6.8",
+
+"@c8y/ng1-modules": "^1006.6.8",
+
+"@c8y/style": "^1006.6.8",
+
 ```
-import {GpS3ImageViewerModule} from 'gp-s3-image-viewer';
-@NgModule({
-  imports: [
-    GpS3ImageViewerModule
-      ]
-  })
+
+**Installation Steps For App Builder:**
+
+**Note:** If you are new to App Builder or not yet downloaded/clone app builder code then please follow [App builder documentation(Build Instructions)](https://github.com/SoftwareAG/cumulocity-app-builder) before proceeding further.
+
+1. Open Your existing App Builder project and install external dependencies by executing below command or install it manually.
+   
+  - Angular Material version 8.2.3
+
+     Installation command: ```npm i @angular/material@8.2.3 ``` 
+
+
+2. Grab the Safe Interaction Overview Widget **[Latest Release Binary](https://github.com/SoftwareAG/cumulocity-safe-interaction-overview-widget/releases/download/1.0.0/gp-safe-interaction-overview-1.0.0.tgz)**
+
+3. Install the Binary file in app builder.
+
 ```
-##### 3. Add Custom Branding
- - Install the base styles from npm with: ```npm install @c8y/style  ``` (please ignore if done as a Prerequisites)
- - Create a LESS file called for instance `branding.less ` .
- - Save it inside a new folder, which can have any name you like.
- - In `branding.less ` import following design templates.
+npm i <binary  file  path>/gp-event-image-viewer-1.0.0.tgz
+```
+4. Open index.less located at /cumulocity-app-builder/ui-assets/
+
+5. Update index.less file with below theme. Import at first line in file/begining of file(Please ignore this step if it already exist).
+
 ```
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
-@import '~font-awesome/less/font-awesome.less';
 @import '~@c8y/style/main.less';
 @import '~@c8y/style/extend.less';
 ```
-- In your application  `package.json ` ->  `c8y` add `brandingEntry`.
-`package.json ` ->  `c8y` Snippet
+6. Import GpEventImageViewerModule in app.module.ts and also place the imported Module under `@NgModule`.
+
 ```
-"c8y": {
-    "application": {
-      "name": "custom-cockpit",
-      "contextPath": "custom-cockpit",
-      "key": "custom-cockpit-application-key",
-      "brandingEntry": "./branding/branding.less",
-      "tabsHorizontal": true,
-      "upgrade": true,
-      "rightDrawer": true,
-      "sensorAppOneLink": "http://onelink.to/pca6qe",
-      "contentSecurityPolicy": "base-uri 'none'; default-src 'self' 'unsafe-inline' http: https: ws: wss:; connect-src 'self' *.billwerk.com http: https: ws: wss:;  script-src 'self' open.mapquestapi.com *.twitter.com *.twimg.com 'unsafe-inline' 'unsafe-eval' data:; style-src * 'unsafe-inline' blob:; img-src * data:; font-src * data:; frame-src *;"
-    },
-    "cli": {}
-  }
-```
-##### 4. Development server
- 1. Using `c8ycli`
-Run `c8ycli server -u <http://cumulocity_tenant>` for a dev server. Navigate to `http://localhost:9000/apps/<cockpit application name>/`. The app will automatically reload if you change any of the source files.
- 2. Using `package.json Scripts`
-Update package.json start script 
-```
-"scripts": {
-  "start": "c8ycli server  -u <http://cumulocity_tenant>",
-  },
-```
-Run `npm run start ` for a dev server. Navigate to `http://localhost:9000/apps/<cockpit application name>/`. The app will automatically reload if you change any of the source files.
-##### 5. Build
-1. Using `c8ycli`
-Run `c8ycli build` 
-2. Using `package.json Scripts`
-Update package.json start script 
-```
-"scripts": {
-  "build": "c8ycli build",
-  },
-```
-Run `npm run build ` 
-##### 6. Deploy widget to the cockpit
- 1. Using `c8ycli`
-Run `c8ycli deploy -u <http://cumulocity_tenant>` 
- 2. Using `package.json Scripts`
-Update package.json start script 
-```
-"scripts": {
-  "deploy": "c8ycli deploy -u <http://cumulocity_tenant>",
-  },
-```
-Run `npm run deploy ` 
-or Usage please refer [Widget iwiki](https://labcase.softwareag.com/projects/s3-image-viewer/wiki#)
-## Event Image Viewer as a custom widget for cumulocity-app-builder Application
-1. Use your existing cumulocity-app-builder application or please refer/clone the cumulocity-app-builder from GitHub [Cumulocity  App Builder](https://github.com/SoftwareAG/cumulocity-app-builder) to create a new application.
-  2. Make sure to navigate to ` cd <App builder path>.\cumulocity-app-builder\` folder install all pre-specified Mandatory Library under [Prerequisites]((https://labcase.softwareag.com/projects/s3-image-viewer/wiki#Prerequisites) in your App Builder.
-    So that your application has the following entries in `package.json `.
-```
-"@angular/cdk": "7.3.7",
-"@angular/material": "7.3.7",
-"core-js": "^2.6.2",
-"aws-sdk": "^2.627.0",
-"@c8y/ngx-components": "^1005.0.3",
-"@c8y/ng1-modules": "^1005.0.3",
-"@c8y/style": "^1005.0.3",
- ```
- **Note: Even if some of the libraries are available please do install, that will only update the library which is already available with latest changes and also update its dependencies.
-**
-### Installation
-1.  Download the Widget source code from the Repository within this project.
-2.  Create a Minorbuild binary file from the source code.
-    - Follow the below-specified command to create a Minorbuild binary file
-      i) run npm i command to install all library files specified in source code
-      ```npm i ``` 
-      ii) run npm run buildMinor command to create a binary file under dist folder
-     ```npm run buildMinor ``` 
-      iii) Copy the binary file **gp-s3-image-viewer-0.x.x.tgz** the latest one from the dist folder and Place the binary file under any folder.
-3. This could be used in conjunction with the application builder/cockpit.
-### Deployment Of Event Image Viewer In App Builder
-##### 1. Install the binary file in App Builder
-To Install the binary file in App Builder, run the following command
-```npm i <binary file path> ``` 
-Example:
-```cmd 
-npm i C:\Users\KHKH\Documents\TestingCockpitApplication\commonLibrary\gp-s3-image-viewer-0.91.0.tgz
- ``` 
-After installation see thatyour App Builder has following entry in `package.json `.
-```cmd 
-"gp-s3-image-viewer": "file:../commonLibrary/gp-s3-image-viewer-0.283.0.tgz",
- ``` 
-##### 2. Import Event Image Viewer Module
-Import GpS3ImageViewerModule in cumulocity-app-builder\custom-widgets\custom-widgets.module.ts  and also place the imported Module under `@NgModule`.
-```
-import { GpS3ImageViewerModule } from 'gp-s3-image-viewer';
+
+import {GpEventImageViewerModule} from 'gp-event-image-viewer';
+
 @NgModule({
+
   imports: [
-    GpS3ImageViewerModule
+
+    GpEventImageViewerModule    
+
       ]
+
   })
+
 ```
-##### 3. Add Custom Branding templates
- - Install the base styles from npm with ```npm install @c8y/style  ``` (please ignore if done as a Prerequisites)
- - In App Builder application navigate to `cumulocity-app-builder\ui-assets\index.less `
- - In `index.less ` import following design templates.
+
+7.  Congratulation! Installation is now completed. Now you can run app builder locally or build and deploy it into your tenant.
+  
 ```
-@import '~@angular/material/prebuilt-themes/indigo-pink.css';
-@import '~font-awesome/less/font-awesome.less';
-@import '~@c8y/style/main.less';
-@import '~@c8y/style/extend.less';
+//Start App Builder
+npm run start
+// Build App
+npm run build
+// Deploy App
+npm run deploy
 ```
-##### 4. Development server
-1. Using `package.json Scripts`
-run ``` npm i ```
-Update package.json start script 
+
+**Installation Steps For Cockpit:**
+
+**Note:** If you are new to Cockpit or not yet created any cockpit application then please follow [Web SDK for Angular](https://cumulocity.com/guides/web/angular/) before proceeding further.
+
+1. Open Your existing Cockpit/Cumulocity project and install external dependencies by executing below command or install it manually.
+
+  - Angular Material version 8.2.3
+
+     Installation command: ```npm i @angular/material@8.2.3 ``` 
+
+
+2. Grab the Safe Interaction Widget **[Latest Release Binary](https://github.com/SoftwareAG/cumulocity-safe-interaction-overview-widget/releases/download/1.0.0/gp-safe-interaction-overview-1.0.0.tgz)**
+
+3. Install the Binary file in app builder.
+
 ```
-"scripts": {
-  "start": "c8ycli server --env.extraWebpackConfig=./extra-webpack.config.js  -u <http://cumulocity_tenant>",
-  },
+npm i <binary  file  path>/gp-event-image-viewer-1.0.0.tgz
 ```
-Run `npm run start ` for a dev server. Navigate to `http://localhost:9000/apps/app-builder/`. The app will automatically reload if you change any of the source files.
-##### 5. Build
-1. Using `package.json Scripts`
-Update package.json start script 
+
+**Note:** If you don't find branding folder then please follow [Cumulocity Branding](https://cumulocity.com/guides/web/angular/#branding)
+
+4. Open branding.less located at /cumulocity-app/branding/
+
+5. In `branding.less ` import following design templates. Import at first line/begining of file(Please ignore this step if it already exist).
+
+  ```
+
+  @import '~@angular/material/prebuilt-themes/indigo-pink.css';
+
+  @import '~@c8y/style/main.less';
+
+  @import '~@c8y/style/extend.less';
+  ```
+6. Import GpSafeInteractionOverviewModule in app.module.ts and also place the imported Module under `@NgModule`.
+
+  ```
+
+import {GpEventImageViewerModule} from 'gp-event-image-viewer';
+
+  @NgModule({
+
+    imports: [
+
+      GpEventImageViewerModule    
+
+        ]
+
+    })
+
+  ```
+
+7.  Congratulation! Installation is now completed. Now you can run your app locally or build and deploy it into your tenant.
+  
 ```
-"scripts": {
-  "build": "c8ycli build --env.extraWebpackConfig=./extra-webpack.config.js",
-  },
+//Start App Builder
+npm run start
+// Build App
+npm run build
+// Deploy App
+npm run deploy
 ```
-Run `npm run build ` 
-##### 6. Deploy widget to the App Builder
-1. Using `package.json Scripts`
-Update package.json start script 
+
+## Build Instructions
+  
+**Note:** It is only necessary to follow these instructions if you are modifying/extending this widget, otherwise see the [Installation Guide](#Installation).
+  
+**Prerequisites:**
+  
+* Git
+  
+* NodeJS (release builds are currently built with `v10.19.0`)
+  
+* NPM (Included with NodeJS)
+
+**Instructions**
+
+1. Clone the repository:
 ```
-"scripts": {
-  "deploy": "c8ycli build --env.extraWebpackConfig=./extra-webpack.config.js -u <http://cumulocity_tenant>",
-  },
-``` 
-Run `npm run deploy ` and provide the cumulocity tenant URL and basic login credentials
-On the successful deployment of the widget, login to cumulocity tenant URL and basic login credentials
+git clone https://github.com/SoftwareAG/cumulocity-safe-interaction-overview-widget.git
+```
+2. Change directory:
+
+  ```cd s3-image-viewer```
+
+3. run npm i command to install all library files specified in source code
+
+  ```npm i ``` 
+
+4. run npm run buildMinor command to create a binary file under dist folder
+
+  ```npm run buildMinor ``` 
+
+5. (Optional) Local development server:
+  
+  ```npm start```
+
+6. Build the app:
+
+  ```npm run build```
+
+7. Deploy the app:
+  ```npm run deploy```
+
+## QuickStart
+This guide will teach you how to add widget in your existing or new dashboard.
+
 1. Open the Application Builder from the app switcher (Next to your username in the top right)
+
 2. Click Add application
+
 3. Enter the application details and click Save
+
 4. Select Add dashboard
+
 5. Click Blank Dashboard
+
 6. Enter the dashboard details and click Save
+
 7. Select the dashboard from the navigation
+
 8. Check for your widget and test it out.
+
+
+
+Congratulations! S3 Image Viewer Widget is configured.
+  
+## User Guide
+
+1. Target Assets/Devices - select group of interest
+
+
+## Troubleshooting
+  
+This widget is provided as-is and without warranty or support. They do not constitute part of the Software AG product suite. Users are free to use, fork and modify them, subject to the license agreement. While Software AG welcomes contributions, we cannot guarantee to include every contribution in the master project.
+  
+_____________________
+  
+For more information you can Ask a Question in the [TECHcommunity Forums](http://tech.forums.softwareag.com/techjforum/forums/list.page?product=cumulocity).
+  
+  
+You can find additional information in the [Software AG TECHcommunity](http://techcommunity.softwareag.com/home/-/product/name/cumulocity).
