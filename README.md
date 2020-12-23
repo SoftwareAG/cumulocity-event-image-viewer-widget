@@ -59,7 +59,7 @@ This widget is designed to display the Events that are created whenever the imag
      Installation command: ```npm i @angular/material@8.2.3 ``` 
 
 
-2. Grab the Safe Interaction Overview Widget **[Latest Release Binary](https://github.com/SoftwareAG/cumulocity-event-image-viewer-widget/releases/download/1.0.0/gp-event-image-viewer-1.0.0.tgz)**
+2. Grab the S3 Image Viewer Widget **[Latest Release Binary](https://github.com/SoftwareAG/cumulocity-event-image-viewer-widget/releases/download/1.0.0/gp-event-image-viewer-1.0.0.tgz)**
 
 3. Install the Binary file in app builder.
 
@@ -115,7 +115,7 @@ npm run deploy
      Installation command: ```npm i @angular/material@8.2.3 ``` 
 
 
-2. Grab the Safe Interaction Widget **[Latest Release Binary](https://github.com/SoftwareAG/cumulocity-event-image-viewer-widget/releases/download/1.0.0/gp-event-image-viewer-1.0.0.tgz)**
+2. Grab the S3 Image Viewer Widget **[Latest Release Binary](https://github.com/SoftwareAG/cumulocity-event-image-viewer-widget/releases/download/1.0.0/gp-event-image-viewer-1.0.0.tgz)**
 
 3. Install the Binary file in app builder.
 
@@ -137,7 +137,7 @@ npm i <binary  file  path>/gp-event-image-viewer-1.0.0.tgz
 
   @import '~@c8y/style/extend.less';
   ```
-6. Import GpSafeInteractionOverviewModule in app.module.ts and also place the imported Module under `@NgModule`.
+6. Import GpEventImageViewerModule in app.module.ts and also place the imported Module under `@NgModule`.
 
   ```
 
