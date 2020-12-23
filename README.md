@@ -1,7 +1,10 @@
-# Cumulocity Widget - S3 Image Viewer[<img width="35" src="https://user-images.githubusercontent.com/67993842/97668428-f360cc80-1aa7-11eb-8801-da578bda4334.png"/>](https://github.com/SoftwareAG/cumulocity-safe-interaction-overview-widget/releases/download/1.0.0/gp-safe-interation-overview-runtime-widget-1.0.0.zip)
+# Cumulocity Widget - S3 Image Viewer[<img width="35" src="https://user-images.githubusercontent.com/67993842/97668428-f360cc80-1aa7-11eb-8801-da578bda4334.png"/>](https://github.com/SoftwareAG/cumulocity-event-image-viewer-widget/releases/download/1.0.0/event-image-viewer-runtime-widget-1.0.0.zip)
 
 ##  Overview
 This widget is designed to display the Events that are created whenever the image is captured by the camera device which in turn triggers the webm.io workflow and the captured image which is stored in AWS S3 or any other storage medium is displayed in the widget. The image is classified good or bad based on AI Predictive analytics. 
+
+## USeCase
+![s3_image_viewer_widget](https://user-images.githubusercontent.com/70568133/102998337-fe3a5980-454c-11eb-8fee-51ad96c5c927.PNG)
 
 ## Features
 
@@ -12,7 +15,7 @@ This widget is designed to display the Events that are created whenever the imag
 ## Installation
 ## Runtime Widget Installation (Without Application Deployment)
 
-* This widget support runtime deployment. Download [Runtime Binary](https://github.com/SoftwareAG/cumulocity-safe-interaction-overview-widget/releases/download/1.0.0/gp-safe-interation-overview-runtime-widget-1.0.0.zip) and follow runtime deployment instruction from [here](https://github.com/SoftwareAG/cumulocity-runtime-widget-loader)
+* This widget support runtime deployment. Download [Runtime Binary](https://github.com/SoftwareAG/cumulocity-event-image-viewer-widget/releases/download/1.0.0/event-image-viewer-runtime-widget-1.0.0.zip) and follow runtime deployment instruction from [here](https://github.com/SoftwareAG/cumulocity-runtime-widget-loader)
 
   
 **Supported Cumulocity Environments:**
@@ -56,7 +59,7 @@ This widget is designed to display the Events that are created whenever the imag
      Installation command: ```npm i @angular/material@8.2.3 ``` 
 
 
-2. Grab the Safe Interaction Overview Widget **[Latest Release Binary](https://github.com/SoftwareAG/cumulocity-safe-interaction-overview-widget/releases/download/1.0.0/gp-safe-interaction-overview-1.0.0.tgz)**
+2. Grab the Safe Interaction Overview Widget **[Latest Release Binary](https://github.com/SoftwareAG/cumulocity-event-image-viewer-widget/releases/download/1.0.0/gp-event-image-viewer-1.0.0.tgz)**
 
 3. Install the Binary file in app builder.
 
@@ -112,7 +115,7 @@ npm run deploy
      Installation command: ```npm i @angular/material@8.2.3 ``` 
 
 
-2. Grab the Safe Interaction Widget **[Latest Release Binary](https://github.com/SoftwareAG/cumulocity-safe-interaction-overview-widget/releases/download/1.0.0/gp-safe-interaction-overview-1.0.0.tgz)**
+2. Grab the Safe Interaction Widget **[Latest Release Binary](https://github.com/SoftwareAG/cumulocity-event-image-viewer-widget/releases/download/1.0.0/gp-event-image-viewer-1.0.0.tgz)**
 
 3. Install the Binary file in app builder.
 
@@ -179,7 +182,7 @@ npm run deploy
 
 1. Clone the repository:
 ```
-git clone https://github.com/SoftwareAG/cumulocity-safe-interaction-overview-widget.git
+git clone https://github.com/SoftwareAG/cumulocity-event-image-viewer-widget.git
 ```
 2. Change directory:
 
@@ -230,7 +233,8 @@ Congratulations! S3 Image Viewer Widget is configured.
 ## User Guide
 
 1. Target Assets/Devices - select group of interest
-
+![s3_image_viewer_config1](https://user-images.githubusercontent.com/70568133/102999005-473edd80-454e-11eb-9a09-9bb6aac913a4.PNG)
+![s3_image_viewer_config2](https://user-images.githubusercontent.com/70568133/102999029-50c84580-454e-11eb-8787-236fcc998985.PNG)
 
 ## Troubleshooting
   
