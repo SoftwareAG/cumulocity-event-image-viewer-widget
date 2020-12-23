@@ -8,8 +8,8 @@ This widget is designed to display the events that are created whenever the imag
 
 ## Features
 
- *  **Displays the events:**
- *  **Display the captured images :** 
+ *  **Displays the events.**
+ *  **Displays the captured images.** 
  * **Uses AI Predictive analytics for image classification** 
  
 ## Installation
