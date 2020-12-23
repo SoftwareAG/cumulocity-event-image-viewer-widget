@@ -1,4 +1,4 @@
-# Cumulocity Widget - S3 Image Viewer[<img width="35" src="https://user-images.githubusercontent.com/67993842/97668428-f360cc80-1aa7-11eb-8801-da578bda4334.png"/>](https://github.com/SoftwareAG/cumulocity-event-image-viewer-widget/releases/download/1.0.0/event-image-viewer-runtime-widget-1.0.0.zip)
+# Cumulocity Widget - Event Image Viewer Widget[<img width="35" src="https://user-images.githubusercontent.com/67993842/97668428-f360cc80-1aa7-11eb-8801-da578bda4334.png"/>](https://github.com/SoftwareAG/cumulocity-event-image-viewer-widget/releases/download/1.0.0/event-image-viewer-runtime-widget-1.0.0.zip)
 
 ##  Overview
 This widget is designed to display the events that are created whenever the image is captured by the camera device which in turn triggers the webm.io workflow and the captured image which is stored in AWS S3 or any other storage medium is displayed in the widget. The image is classified good or bad based on AI Predictive analytics. 
@@ -59,7 +59,7 @@ This widget is designed to display the events that are created whenever the imag
      Installation command: ```npm i @angular/material@8.2.3 ``` 
 
 
-2. Grab the S3 Image Viewer Widget **[Latest Release Binary](https://github.com/SoftwareAG/cumulocity-event-image-viewer-widget/releases/download/1.0.0/gp-event-image-viewer-1.0.0.tgz)**
+2. Grab the Event Image Viewer Widget **[Latest Release Binary](https://github.com/SoftwareAG/cumulocity-event-image-viewer-widget/releases/download/1.0.0/gp-event-image-viewer-1.0.0.tgz)**
 
 3. Install the Binary file in app builder.
 
@@ -115,7 +115,7 @@ npm run deploy
      Installation command: ```npm i @angular/material@8.2.3 ``` 
 
 
-2. Grab the S3 Image Viewer Widget **[Latest Release Binary](https://github.com/SoftwareAG/cumulocity-event-image-viewer-widget/releases/download/1.0.0/gp-event-image-viewer-1.0.0.tgz)**
+2. Grab the Event Image Viewer Widget **[Latest Release Binary](https://github.com/SoftwareAG/cumulocity-event-image-viewer-widget/releases/download/1.0.0/gp-event-image-viewer-1.0.0.tgz)**
 
 3. Install the Binary file in app builder.
 
@@ -228,7 +228,7 @@ This guide will teach you how to add widget in your existing or new dashboard.
 
 
 
-Congratulations! S3 Image Viewer Widget is configured.
+Congratulations! Event Image Viewer Widget is configured.
   
 ## User Guide
 
