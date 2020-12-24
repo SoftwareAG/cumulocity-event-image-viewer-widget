@@ -48,7 +48,7 @@ export class GpEventImageViewerService {
   getImage = (key) => {
     if (this.s3 !== undefined) {
       const url = this.s3.getSignedUrl('getObject', {
-        Bucket: this.config.bucket, // "sag-global-presales",
+        Bucket: this.config.bucket,
         Key: key + '',
       });
       return url;
